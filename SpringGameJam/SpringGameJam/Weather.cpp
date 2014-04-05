@@ -20,52 +20,52 @@ void Weather::update(float deltaTime)
 	//hot and wet
 	if(temperature > 0 && moisture > 0)
 	{
-
+		weatherState = 0;
 	}
 	//hot and dry
 	else if(temperature > 0 && moisture < 0)
 	{
-
+		weatherState = 1;
 	}
 	//hot and pleasent
 	else if(temperature > 0 && moisture == 0)
 	{
-
+		weatherState = 2;
 	}
 	//cold and dry
 	else if(temperature < 0 && moisture < 0)
 	{
-
+		weatherState = 3;
 	}
 	//cold and wet
 	else if(temperature < 0 && moisture > 0)
 	{
-
+		weatherState = 4;
 	}
 	//cold and pleasent
 	else if(temperature < 0 && moisture == 0)
 	{
-
+		weatherState = 5;
 	}
 	//mild and pleasent
 	else if(temperature == 0 && moisture == 0)
 	{
-
+		weatherState = 6;
 	}
 	//mild and wet
 	else if(temperature == 0 && moisture > 0)
 	{
-
+		weatherState = 7;
 	}
 	//mild and dry
 	else if(temperature == 0 && moisture < 0)
 	{
-
+		weatherState = 8;
 	}
 	//error: temp and moisture outside normal paramaters
 	else
 	{
-
+		weatherState = 9;
 	}
 }
 
