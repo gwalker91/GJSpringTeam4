@@ -19,11 +19,7 @@ int main()
 			}
         }
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-
-		}
-
+		e->handleInput();
 		e->update();
 		e->draw();
     }
