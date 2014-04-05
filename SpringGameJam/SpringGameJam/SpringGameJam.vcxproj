@@ -84,7 +84,8 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="Weather.cpp" />
+    <ClCompile Include="Wrath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseNPC.h" />
@@ -92,7 +93,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Spawner.h" />
+    <ClInclude Include="Weather.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="Wrath.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

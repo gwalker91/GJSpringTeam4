@@ -20,9 +20,6 @@ private:
 	void loadAssets();
 	void loadTexture(std::string filePath, std::string KeyName);
 
-	sf::Sprite day;
-	sf::Sprite night;
-	sf::Sprite toDraw;
 public:
 	Engine();
 	~Engine();
