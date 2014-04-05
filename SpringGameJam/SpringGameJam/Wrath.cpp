@@ -1,8 +1,9 @@
 #include "Wrath.h"
+#include "Globals.h"
 
 Wrath::Wrath()
 {
-
+	
 }
 
 Wrath::~Wrath()
@@ -16,13 +17,19 @@ void Wrath::update(float deltaTime)
 	//update everything!
 }
 
+//***HANDLEINPUT***
+void Wrath::handleInput()
+{
+	//handle's input
+}
+
 //*********getters************
 int Wrath::getWrathCount()
 {
 	return wrathCount;
 }
 
-int* Wrath::getWrathCoor()
+float* Wrath::getWrathCoor()
 {
 	return wrathCoor;
 }
@@ -38,13 +45,13 @@ void Wrath::setWrathCount(int newCount)
 	wrathCount = newCount;
 }
 
-void Wrath::setWrathCount(float newX, float newY)
+void Wrath::setWrathCoor(float newX, float newY)
 {
 	wrathCoor[0] = newX;
 	wrathCoor[1] = newY;
 }
 
-void Wrath::setWrathCount(int newWrath)
+void Wrath::setWrath(bool newWrath)
 {
 	wrath = newWrath;
 }

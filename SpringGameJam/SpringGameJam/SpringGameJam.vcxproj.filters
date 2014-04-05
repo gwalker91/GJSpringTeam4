@@ -30,6 +30,9 @@
     <ClCompile Include="Wrath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Weather.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
