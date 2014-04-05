@@ -9,21 +9,19 @@ Engine::Engine()
 
 	loadAssets();
 
-	day = sf::Sprite(txtMap->at("DayBackground"));
-	night = sf::Sprite(txtMap->at("NightBackground"));
-
-	toDraw = day;
+	gameWorld = new World();
 }
 
 Engine::~Engine()
 {
-	//delete gameWorld;
+	delete gameWorld;
 	delete window;
 }
 
 void Engine::loadAssets()
 {
 	loadTexture("Images/NightBackground.png", "NightBackground");
+	loadTexture("Images/EveningBackGround.png", "EveningBackGround");
 	loadTexture("Images/DayBackground.png", "DayBackground");
 }
 
@@ -46,19 +44,13 @@ sf::RenderWindow* Engine::getWindow()
 
 void Engine::handleInput()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	{
-		toDraw = day;
-	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		toDraw = night;
-	}
+	gameWorld->handleInput();
 }
 
 void Engine::update()
 {
 	sf::Time deltaTime = gameClock.getElapsedTime();
+	gameWorld->update(deltaTime.asSeconds());
 	//std::cout << deltaTime.asSeconds() << std::endl;
 	gameClock.restart();
 }
@@ -66,6 +58,6 @@ void Engine::update()
 void Engine::draw()
 {
 	window->clear();
-	window->draw(toDraw);
+	gameWorld->draw(window);
     window->display();
 }
