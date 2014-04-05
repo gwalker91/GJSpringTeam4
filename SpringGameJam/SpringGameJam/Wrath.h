@@ -13,9 +13,12 @@ public:
 	//runs updates
 	void update(float deltaTime);
 
+	//handle's user input
+	void handleInput();
+
 	//getters
 	int getWrathCount();
-	int* getWrathCoor();
+	float* getWrathCoor();
 	bool getWrath();
 
 	//setters
@@ -25,11 +28,11 @@ public:
 
 private:
 	//wrath counter
-	int wrathCount
+	int wrathCount;
 	//Smite? y/n:
 	bool wrath;
 	//wrath location (x,y)
-	float[] wrathCoor;
+	float wrathCoor[2];
 };
 
 #endif

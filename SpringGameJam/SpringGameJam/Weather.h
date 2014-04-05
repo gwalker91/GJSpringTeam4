@@ -5,34 +5,37 @@
 
 class Weather
 {
-	public:
-		//constructor
-		Weather();
-		//destructor
-		~Weather();
+public:
+	//constructor
+	Weather();
+	//destructor
+	~Weather();
 
-		//runs updates
-		void update(float deltaTime);
+	//runs updates
+	void update(float deltaTime);
 
-		//getters
-		float getGravity();
-		int getMoisture();
-		int getTempurature();
-		int getTime();
+	//handles user input
+	void handleInput();
 
-		//setters
-		void setGravity(float newGrav);
-		void setMoisture(int newMoist);
-		void setTempurature(int newTemp);
-		void setTime(int newTime);
+	//getters
+	int getMoisture();
+	int getTemperature();
+	int getTime();
 
-	private:
-		//basic weather variables
-		// -1, 0, 1
-		int moisture;
-		int temperature;
-		float gravity;
-		int time;
+	//setters
+	void setMoisture(int newMoist);
+	void setTemperature(int newTemp);
+	void setTime(int newTime);
+
+private:
+	//basic weather variables
+	// -1, 0, 1
+	int moisture;
+	int temperature;
+	int time;
+	//tracks current weather based off
+	//of moisture and tempurature
+	int weatherState;
 };
 
 #endif
