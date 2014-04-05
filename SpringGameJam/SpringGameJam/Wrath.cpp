@@ -17,10 +17,10 @@ void Wrath::update(float deltaTime)
 	//update everything!
 }
 
-//***HANDLEINPUT***
+//***HANDLE INPUT***
 void Wrath::handleInput()
 {
-	//handle's input
+	//handles input
 }
 
 //*********getters************
