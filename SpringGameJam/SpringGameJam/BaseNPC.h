@@ -1,6 +1,8 @@
 
 //KTZ was here...
-//made BaseNPC class
+//Included falling speed, changed walking speed
+//into two different variables: maxspeed and currentspeed
+//included a private method to let npc's speed change.
 #ifndef BASENPC_H
 #define BASENPC_H
 
@@ -18,11 +20,12 @@ public:
 
 	//NPC Behavior
 	virtual void walk();
+	virtual void verticalMove();
 
 	//will play the animation on the npc
-	virtual void setOnFire();
-	virtual void setIsCold();
-	virtual void setIsHot();
+	virtual void setOnFire(float deltaTime);
+	virtual void setIsCold(float deltaTime);
+	virtual void setIsHot(float deltaTime);
 
 	//a universal state changer based on current state of game weather or their health to change their current state...
 	virtual void changeState(/*weather parameter(s)*/);
@@ -31,6 +34,7 @@ public:
 	virtual void setPanicking();
 
 	virtual void damageHP(int damage);
+	virtual bool groundCollision();
 
 	//NPC states variables - also for playing their respective animations
 	//game elements should be able to access an npc's current state and change it, like weather
@@ -40,16 +44,21 @@ public:
 	bool isDead;
 	bool panicking;
 
-	//still need to discuss what to do with the two meters discussed.
+	//still need to discuss what to do with the two meters mentioned.
 	int terror;
 	int respect;
 
 private:
 	int HP; //health points
-	float walkingSpeed;
+	float maxSpeed;
+	float currentSpeed;
 	bool isChangingDirection;
 	int changeDirection();
-	sf::Sprite tinyHumanBeing;
+	float changeSpeed(int gravityInfluence);
+	float changeFallSpeed(int gravityInfluence);
+	int fallingSpeed;
+	sf::Sprite Human;
+	sf::Time DOT; //moar dotz NOAW! (damage over time)
 };
 
 #endif //BASENPC_H

@@ -4,45 +4,75 @@
 //for all functions needing to animate, we still need images to load
 #include "BaseNPC.h"
 
-BaseNPC::BaseNPC() : HP(5 + (rand() % 16)), isDead(false), onFire(false), walkingSpeed(1 + float(rand() % 5)), 
-					 isChangingDirection(false)
+//TODO: still need to load image onto BaseNPC.
+BaseNPC::BaseNPC() : HP(5 + (rand() % 16)), isDead(false), onFire(false), maxSpeed(1 + float(rand() % 5)), 
+	currentSpeed(maxSpeed), fallingSpeed(gravity), isChangingDirection(false), DOT(sf::seconds(0.0f))
 {}
 
 BaseNPC::~BaseNPC()
-{}
+{
+	
+}
 
 void BaseNPC::walk()
 {
 	//play walking animation
-	walkingSpeed = walkingSpeed + gravity;
+	//move around using current speed
+	//at random times, the npc's direction will change
+	if(rand() % 1000 > 900)
+		isChangingDirection = true;
+	currentSpeed *= changeDirection();
+	Human.move(sf::Vector2f(Human.getPosition().x + currentSpeed, Human.getPosition().y));
+	
 }
 
-//TODO: implement falling speed
+//depending on gravity, the npc will either be constantly rising or falling
+void BaseNPC::verticalMove()
+{
+	if(!groundCollision())
+		Human.move(sf::Vector2f(Human.getPosition().x, Human.getPosition().y + fallingSpeed));
+}
 
-void BaseNPC::setOnFire()
+bool BaseNPC::groundCollision()
+{
+	//need to calculate collision between ground and person.
+	return true;
+}
+
+//This method should only run if the npc is on fire
+void BaseNPC::setOnFire(float deltaTime)
 {
 	//play animation with npc on fire
 	//decrease their HP over time
+	DOT = DOT + sf::seconds(deltaTime);
+	if(DOT > sf::seconds(1.0f))
+		damageHP(2);
 }
 
-void BaseNPC::setIsCold()
+void BaseNPC::setIsCold(float deltaTime)
 {
 	//play animation of npc freezing
-	walkingSpeed /= 2;
+	currentSpeed = changeSpeed(gravity)/2;
 	//decrease their HP over time
+	DOT = DOT + sf::seconds(deltaTime);
+	if(DOT > sf::seconds(1.0f))
+		damageHP(2);
 }
 
-void BaseNPC::setIsHot()
+void BaseNPC::setIsHot(float deltaTime)
 {
-	//play animation of npc freezing
-	walkingSpeed /= 2;
+	//play animation of npc sweaty
+	currentSpeed = changeSpeed(gravity)/2;
 	//decrease their HP over time
+	DOT = DOT + sf::seconds(deltaTime);
+	if(DOT > sf::seconds(1.0f))
+		damageHP(2);
 }
 
 void BaseNPC::setIsDead()
 {
 	//play dead animation once and let it lie there for a few seconds before deallocation
-	walkingSpeed *= 0;
+	currentSpeed *= 0;
 }
 
 void BaseNPC::changeState(/*weather parameter(s)*/)
@@ -57,7 +87,7 @@ void BaseNPC::changeState(/*weather parameter(s)*/)
 
 void BaseNPC::setPanicking()
 {
-	walkingSpeed *= 2;
+	currentSpeed = changeSpeed(gravity) * 2;
 	//I would like to try to get the npc to walk the opposite direction from where the player is
 	changeDirection();
 }
@@ -67,11 +97,25 @@ void BaseNPC::damageHP(int damage)
 	HP -= damage;
 }
 
-//I think there may be a simpler way to change direction than what I have
 int BaseNPC::changeDirection()
 {
 	if(isChangingDirection)
+	{
+		isChangingDirection = false;
 		return -1;
+	}
 	else
 		return 1;
+}
+
+float BaseNPC::changeSpeed(int gravityInfluence)
+{
+	//run through this function once at initial start and everytime gravity is changed
+	return maxSpeed - gravity;
+}
+
+float BaseNPC::changeFallSpeed(int gravityInfluence)
+{
+	//run through this function once at initial start and everytime gravity is changed
+	return fallingSpeed = gravity;
 }

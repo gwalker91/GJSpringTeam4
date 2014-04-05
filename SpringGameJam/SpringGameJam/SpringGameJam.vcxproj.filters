@@ -30,6 +30,9 @@
     <ClCompile Include="BaseNPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
