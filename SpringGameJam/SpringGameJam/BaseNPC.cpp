@@ -2,6 +2,7 @@
 //KTZ was here...
 //defined the functions for BaseNPC
 //for all functions needing to animate, we still need images to load
+//4:41pm:almost done now, just need to finish making sure npcs do not fall through the world
 #include "BaseNPC.h"
 
 //TODO: still need to load image onto BaseNPC.
