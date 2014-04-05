@@ -59,7 +59,7 @@ void Engine::handleInput()
 void Engine::update()
 {
 	sf::Time deltaTime = gameClock.getElapsedTime();
-	std::cout << deltaTime.asSeconds() << std::endl;
+	//std::cout << deltaTime.asSeconds() << std::endl;
 	gameClock.restart();
 }
 
