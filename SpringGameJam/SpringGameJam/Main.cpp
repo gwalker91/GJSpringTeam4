@@ -1,24 +1,34 @@
 #include <SFML/Graphics.hpp>
 
+#include "Engine.h"
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    Engine* e = new Engine();
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
-    while (window.isOpen())
+	while (e->getWindow()->isOpen())
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (e->getWindow()->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+			{
+				e->getWindow()->close();
+			}
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+
+		}
+
+		e->update();
+		e->draw();
     }
+
+	delete e;
 
     return 0;
 }
