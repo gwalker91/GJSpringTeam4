@@ -8,6 +8,7 @@
 
 #include "Entity.h"
 #include "Globals.h"
+#include "Weather.h"
 #include <random>
 
 class BaseNPC : public Entity
@@ -16,7 +17,6 @@ public:
 	BaseNPC();
 	~BaseNPC();
 	void update(float deltaTime);
-	void draw(sf::RenderWindow w);
 
 	//NPC Behavior
 	virtual void walk();
@@ -26,9 +26,10 @@ public:
 	virtual void setOnFire(float deltaTime);
 	virtual void setIsCold(float deltaTime);
 	virtual void setIsHot(float deltaTime);
+	virtual void setIsWet(float deltaTime);
 
-	//a universal state changer based on current state of game weather or their health to change their current state...
-	virtual void changeState(/*weather parameter(s)*/);
+	//a universal state changer based on current state of game weather
+	virtual void changeState(Weather weather);
 
 	virtual void setIsDead();
 	virtual void setPanicking();
@@ -41,6 +42,7 @@ public:
 	bool onFire;
 	bool isCold;	//based on current state of weather
 	bool isHot;		//based on current state of weather
+	bool isWet;		//based on current state of weather
 	bool isDead;
 	bool panicking;
 

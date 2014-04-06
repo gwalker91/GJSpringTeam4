@@ -15,6 +15,9 @@ BaseNPC::~BaseNPC()
 	
 }
 
+void BaseNPC::update(float deltaTime)
+{}
+
 void BaseNPC::walk()
 {
 	//play walking animation
@@ -47,7 +50,10 @@ void BaseNPC::setOnFire(float deltaTime)
 	//decrease their HP over time
 	DOT = DOT + sf::seconds(deltaTime);
 	if(DOT > sf::seconds(1.0f))
+	{
+		DOT = sf::seconds(0.0f);
 		damageHP(2);
+	}
 }
 
 void BaseNPC::setIsCold(float deltaTime)
@@ -57,7 +63,10 @@ void BaseNPC::setIsCold(float deltaTime)
 	//decrease their HP over time
 	DOT = DOT + sf::seconds(deltaTime);
 	if(DOT > sf::seconds(1.0f))
+	{
+		DOT = sf::seconds(0.0f);
 		damageHP(2);
+	}
 }
 
 void BaseNPC::setIsHot(float deltaTime)
@@ -67,7 +76,15 @@ void BaseNPC::setIsHot(float deltaTime)
 	//decrease their HP over time
 	DOT = DOT + sf::seconds(deltaTime);
 	if(DOT > sf::seconds(1.0f))
+	{
+		DOT = sf::seconds(0.0f);
 		damageHP(2);
+	}
+}
+
+void BaseNPC::setIsWet(float deltaTime)
+{
+	//play animation of npc wet
 }
 
 void BaseNPC::setIsDead()
@@ -76,14 +93,71 @@ void BaseNPC::setIsDead()
 	currentSpeed *= 0;
 }
 
-void BaseNPC::changeState(/*weather parameter(s)*/)
+void BaseNPC::changeState(Weather weather)
 {
 	//need to be able to handle different cases of weather
-	//weather will need to be completed before going further with this
-	/*switch(0)
+	if(weather.getTemperature() > 0 && weather.getMoisture() > 0)
 	{
-	default:
-	}*/
+		isCold = false;
+		isHot = false;
+		isWet = true;
+	}
+	//hot and dry
+	else if(weather.getTemperature() > 0 && weather.getMoisture() < 0)
+	{
+		isCold = false;
+		isHot = true;
+		isWet = false;
+	}
+	//hot and pleasent
+	else if(weather.getTemperature() > 0 && weather.getMoisture() == 0)
+	{
+		isCold = false;
+		isHot = true;
+		isWet = false;
+	}
+	//cold and dry
+	else if(weather.getTemperature() < 0 && weather.getMoisture() < 0)
+	{
+		isCold = true;
+		isHot = false;
+		isWet = false;
+	}
+	//cold and wet
+	else if(weather.getTemperature() < 0 && weather.getMoisture() > 0)
+	{
+		isCold = true;
+		isHot = false;
+		isWet = false;
+	}
+	//cold and pleasent
+	else if(weather.getTemperature() < 0 && weather.getMoisture() == 0)
+	{
+		isCold = true;
+		isHot = false;
+		isWet = false;
+	}
+	//mild and pleasent
+	else if(weather.getTemperature() == 0 && weather.getMoisture() == 0)
+	{
+		isCold = false;
+		isHot = false;
+		isWet = false;
+	}
+	//mild and wet
+	else if(weather.getTemperature() == 0 && weather.getMoisture() > 0)
+	{
+		isCold = false;
+		isHot = false;
+		isWet = true;
+	}
+	//mild and dry
+	else if(weather.getTemperature() == 0 && weather.getMoisture() < 0)
+	{
+		isCold = false;
+		isHot = false;
+		isWet = false;
+	}
 }
 
 void BaseNPC::setPanicking()
