@@ -8,8 +8,16 @@ extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
 //KTZ was here..
-//added a new extern int type
+//added a new extern int type to limit how many people can exist at once
 const extern int NUM_OF_PEOPLE;
+
+//KTZ was here...
+//added another int to track how many people are still alive
+extern int num_of_alive_people;
+
+//KTZ was here...
+//added another int to track how many people are active
+extern int num_of_active_people;
 
 extern float gravity;
 
