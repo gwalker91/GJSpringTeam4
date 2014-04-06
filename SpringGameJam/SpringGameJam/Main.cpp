@@ -4,6 +4,8 @@
 
 #include "Engine.h"
 
+void cleanUp(Engine* e);
+
 int main()
 {
     Engine* e = new Engine();
@@ -26,8 +28,14 @@ int main()
 		e->draw();
     }
 
-	delete e;
-	delete txtMap;
+	cleanUp(e);
 
     return 0;
+}
+
+void cleanUp(Engine* e)
+{
+	delete e;
+	txtMap->clear();
+	delete txtMap;
 }
