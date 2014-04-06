@@ -27,7 +27,7 @@ bool Particle::checkState()
 
 void Particle::update(float deltaTime)
 {
-	position += velocity;
+	position += velocity * deltaTime;
 	pImage.setPosition(position);
 
 	if(position.y > SCREEN_HEIGHT)

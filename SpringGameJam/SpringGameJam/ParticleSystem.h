@@ -11,17 +11,18 @@ class ParticleSystem
 {
 private:
 	std::vector<Particle*> particleList;
-	std::vector<Particle*>::iterator it;
 	std::string tKey;
-	int mParticles;	
+	int mParticles;
+	float timeToSpawnDrop;
 
-	void createPaticle();
+	void createParticle();
 	
 public:
 	ParticleSystem(std::string TextureKey, int maxParticles);
 	~ParticleSystem();
 	void changeTexture(std::string TextureKey);
 	void changeNumParticles(int maxParticles);
+	void clearSystem();
 	void update(float deltaTime);
 	void draw(sf::RenderWindow* w);
 };

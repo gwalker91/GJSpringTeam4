@@ -2,6 +2,8 @@
 #define WEATHER_H
 
 #include "Globals.h"
+#include "ParticleSystem.h" 
+
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
@@ -42,8 +44,9 @@ private:
 	//of moisture and tempurature
 	int weatherState;
 
-	sf::Sprite m;
-	sf::Sprite temp;
+	int heavyRain, lightRain, noRain;
+
+	ParticleSystem rainSystem;
 };
 
 #endif
