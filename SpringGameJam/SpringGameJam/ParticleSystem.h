@@ -10,7 +10,7 @@
 class ParticleSystem
 {
 private:
-	std::vector<Particle*> particleList;
+	std::vector<Particle> particleList;
 	std::string tKey;
 	int mParticles;
 	float timeToSpawnDrop;

@@ -3,7 +3,8 @@
 #include <iostream>
 
 Engine::Engine()
-	:gameClock()
+	:gameClock(),
+	saved(false)
 {
 	window = new sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 
@@ -24,12 +25,14 @@ void Engine::loadAssets()
 	loadTexture("Images/DayBackground.png", "DayBackground");
 	loadTexture("Images/RainDrop.png", "RainDrop");
 	loadTexture("Images/Snow.png", "Snow");
+	loadTexture("Images/Wrath.png", "Wrath");
+	loadTexture("Images/WrathBar.png", "WrathBar");
 }
 
 void Engine::loadTexture(std::string filePath, std::string KeyName)
 {
-	sf::Texture tempText;
-	if(!tempText.loadFromFile(filePath))
+	sf::Texture* tempText = new sf::Texture();
+	if(!(*tempText).loadFromFile(filePath))
 	{
 		std::cout << KeyName << " texture was not loaded!" << std::endl;
 		window->close();
@@ -45,15 +48,29 @@ sf::RenderWindow* Engine::getWindow()
 
 void Engine::handleInput()
 {
-	if(sf::Keyboard::isKeyPressed(upGravityButton))
+	if(!saved)
 	{
-		gravity += 0.1;
+		if(sf::Keyboard::isKeyPressed(saveButton))
+		{
+			saved = true;
+		}
+		if(sf::Keyboard::isKeyPressed(upGravityButton))
+		{
+			gravity += 0.1f;
+		}
+		if(sf::Keyboard::isKeyPressed(downGravityButton))
+		{
+			gravity -= 0.1f;
+		}
+		gameWorld->handleInput();
 	}
-	if(sf::Keyboard::isKeyPressed(downGravityButton))
+	else
 	{
-		gravity -= 0.1;
+		if(sf::Keyboard::isKeyPressed(saveButton))
+		{
+			saved = false;
+		}
 	}
-	gameWorld->handleInput();
 }
 
 void Engine::update()

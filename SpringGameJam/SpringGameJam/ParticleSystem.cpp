@@ -5,7 +5,7 @@ ParticleSystem::ParticleSystem(std::string TextureKey, int maxParticles)
 	:tKey(TextureKey),
 	mParticles(maxParticles),
 	timeToSpawnDrop(0),
-	spawnDensity(0.01)
+	spawnDensity(0.01f)
 {
 }
 
@@ -16,7 +16,7 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::createParticle()
 {
-	particleList.push_back(new Particle(sf::Sprite(txtMap->at(tKey)), sf::Vector2f(std::rand() % SCREEN_WIDTH, -10.0f), 
+	particleList.push_back(Particle(sf::Sprite((*txtMap->at(tKey))), sf::Vector2f(std::rand() % SCREEN_WIDTH, -10.0f), 
 		sf::Vector2f(0, std::rand() % 200 + 100)));
 }
 
@@ -27,12 +27,8 @@ void ParticleSystem::changeTexture(std::string TextureKey)
 	{
 		for (int i = 0; i < particleList.size(); i++)
 		{
-			if(particleList.at(i)->checkState())
-				particleList.at(i)->changeTexture(sf::Sprite(txtMap->at(tKey)));
-			else
-			{
-				particleList.erase(particleList.begin() + i);
-			}
+			if(particleList.at(i).checkState())
+				particleList.at(i).changeTexture(sf::Sprite((*txtMap->at(tKey))));
 		}
 	}
 }
@@ -47,11 +43,11 @@ void ParticleSystem::changeDensity(int weather)
 		break;
 	//Mild weather
 	case 1:
-		spawnDensity = 0.1;
+		spawnDensity = 0.1f;
 		break;
 	//Heavy Rain
 	case 2:
-		spawnDensity = 0.01;
+		spawnDensity = 0.01f;
 		break;
 
 	}
@@ -79,8 +75,8 @@ void ParticleSystem::update(float deltaTime)
 	{
 		for (int i = 0; i < particleList.size(); i++)
 		{
-			if(particleList.at(i)->checkState())
-				particleList.at(i)->update(deltaTime);
+			if(particleList.at(i).checkState())
+				particleList.at(i).update(deltaTime);
 			else
 			{
 				particleList.erase(particleList.begin() + i);
@@ -94,6 +90,6 @@ void ParticleSystem::draw(sf::RenderWindow* w)
 {
 	for (int i = 0; i < particleList.size(); i++)
 	{
-		particleList.at(i)->draw(w);
+		particleList.at(i).draw(w);
 	}
 }

@@ -10,11 +10,12 @@ extern int SCREEN_HEIGHT;
 //KTZ was here..
 //added a new extern int type
 const extern int NUM_OF_PEOPLE;
+const extern int MAX_HEALTH;
 
 extern float gravity;
 
-typedef std::map<std::string, sf::Texture> TextureMap;
-typedef std::pair<std::string, sf::Texture> MapPair;
+typedef std::map<std::string, sf::Texture*> TextureMap;
+typedef std::pair<std::string, sf::Texture*> MapPair;
 
 extern TextureMap* txtMap;
 
@@ -39,6 +40,11 @@ extern sf::Keyboard::Key downGravityButton;
 
 //Takes care of the keys for wrath
 extern sf::Keyboard::Key chargeWrathButton;
+extern sf::Keyboard::Key unleashWrathButton;
+
+//SaveButton
+extern sf::Keyboard::Key saveButton;
+
 
 
 

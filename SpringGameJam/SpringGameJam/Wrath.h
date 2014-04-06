@@ -2,6 +2,7 @@
 #define WRATH_H
 
 #include "Globals.h"
+#include <SFML/Graphics.hpp>
 
 //Controls the wrath, tracks the wrath meter, 
 class Wrath
@@ -10,31 +11,31 @@ public:
 	Wrath();
 	~Wrath();
 
-	//runs updates
-	void update(float deltaTime);
+	bool checkWrathing();
+	float getWrathDmg();
 
 	//handle's user input
 	void handleInput();
 
-	//getters
-	int getWrathCount();
-	float* getWrathCoor();
-	bool getWrath();
-
-	//setters
-	void setWrathCount(int newCount);
-	void setWrathCoor(float newX, float newY);
-	void setWrath(bool newWrath);
+	//runs updates
+	void update(float deltaTime);
+	
+	void draw(sf::RenderWindow* w);
 
 private:
 	//wrath counter
-	int wrathCount;
-	//Smite? y/n:
-	bool wrath;
-	//wrath location (x,y)
-	float wrathCoor[2];
+	float wrathPower;
+	float spriteTimer;
+	bool usingWrath;
+	bool chargeWrath;
 
 	sf::Sprite wrathImage;
+	sf::Sprite wrathBar;
+	int row, col;
+	float wrathWidth;
+
+	void updateSprite();
+
 };
 
 #endif
