@@ -8,7 +8,6 @@ Engine::Engine()
 	window = new sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 
 	loadAssets();
-
 	gameWorld = new World();
 }
 

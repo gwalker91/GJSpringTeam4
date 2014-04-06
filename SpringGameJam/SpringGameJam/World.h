@@ -20,7 +20,6 @@ public:
 	void handleInput();
 	void update(float deltaTime);
 	void draw(sf::RenderWindow* w);
-
 };
 
 
