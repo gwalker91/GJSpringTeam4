@@ -2,6 +2,7 @@
 #include "Globals.h"
 
 Wrath::Wrath()
+	:wrathImage(sf::Sprite(txtMap->at("Wrath")))
 {
 	
 }

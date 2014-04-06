@@ -33,6 +33,8 @@ private:
 	bool wrath;
 	//wrath location (x,y)
 	float wrathCoor[2];
+
+	sf::Sprite wrathImage;
 };
 
 #endif

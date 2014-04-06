@@ -55,82 +55,67 @@ void Weather::update(float deltaTime)
 	if(temperature > 0 && moisture > 0)
 	{
 		weatherState = 0;
-		//m.setColor(sf::Color(255,255,255,200));
-		//temp.setColor(sf::Color(255,255,255,120));
 		rainSystem.changeNumParticles(heavyRain);
-		std::cout << "Hot and Wet" << std::endl;
+		//std::cout << "Hot and Wet" << std::endl;
 	}
 	//hot and dry
 	else if(temperature > 0 && moisture < 0)
 	{
 		weatherState = 1;
-		//m.setColor(sf::Color(255,255,255,0));
-		//temp.setColor(sf::Color(255,255,255,120));
 		rainSystem.changeNumParticles(noRain);
 		rainSystem.clearSystem();
-		std::cout << "hot and dry" << std::endl;
+		//std::cout << "hot and dry" << std::endl;
 	}
 	//hot and pleasent
 	else if(temperature > 0 && moisture == 0)
 	{
 		weatherState = 2;
-		//m.setColor(sf::Color(255,255,255,50));
-		//temp.setColor(sf::Color(255,255,255,120));
 		rainSystem.changeNumParticles(lightRain);
-		std::cout << "hot and pleasent" << std::endl;
+		//std::cout << "hot and pleasent" << std::endl;
 	}
 	//cold and dry
 	else if(temperature < 0 && moisture < 0)
 	{
 		weatherState = 3;
-		//m.setColor(sf::Color(255,255,255,0));
 		rainSystem.changeNumParticles(noRain);
 		rainSystem.clearSystem();
-		std::cout << "cold and dry" << std::endl;
+		//std::cout << "cold and dry" << std::endl;
 	}
 	//cold and wet
 	else if(temperature < 0 && moisture > 0)
 	{
 		weatherState = 4;
-		//m.setColor(sf::Color(255,255,255,200));
 		rainSystem.changeNumParticles(heavyRain);
-		std::cout << "cold and wet" << std::endl;
+		//std::cout << "cold and wet" << std::endl;
 	}
 	//cold and pleasent
 	else if(temperature < 0 && moisture == 0)
 	{
 		weatherState = 5;
-		//m.setColor(sf::Color(255,255,255,50));
 		rainSystem.changeNumParticles(lightRain);
-		std::cout << "cold and pleasent" << std::endl;
+		//std::cout << "cold and pleasent" << std::endl;
 	}
 	//mild and pleasent
 	else if(temperature == 0 && moisture == 0)
 	{
 		weatherState = 6;
-		//m.setColor(sf::Color(255,255,255,50));
-		//temp.setColor(sf::Color(255,255,255,50));
 		rainSystem.changeNumParticles(lightRain);
-		std::cout << "mild and pleasent" << std::endl;
+		//std::cout << "mild and pleasent" << std::endl;
 	}
 	//mild and wet
 	else if(temperature == 0 && moisture > 0)
 	{
 		weatherState = 7;
-		//m.setColor(sf::Color(255,255,255,200));
-		//temp.setColor(sf::Color(255,255,255,50));
 		rainSystem.changeNumParticles(heavyRain);
-		std::cout << "mild and wet" << std::endl;
+		//std::cout << "mild and wet" << std::endl;
 	}
 	//mild and dry
 	else if(temperature == 0 && moisture < 0)
 	{
 		weatherState = 8;
-		//m.setColor(sf::Color(255,255,255,0));
-		//temp.setColor(sf::Color(255,255,255,50));
 		rainSystem.changeNumParticles(noRain);
 		rainSystem.clearSystem();
-		std::cout << "mild and dry" << std::endl;
+		//std::cout << "mild and dry" << std::endl;
 	}
 	//error: temp and moisture outside normal paramaters
 	else

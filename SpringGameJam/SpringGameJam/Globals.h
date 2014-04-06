@@ -11,7 +11,7 @@ extern int SCREEN_HEIGHT;
 //added a new extern int type
 const extern int NUM_OF_PEOPLE;
 
-extern int gravity;
+extern float gravity;
 
 typedef std::map<std::string, sf::Texture> TextureMap;
 typedef std::pair<std::string, sf::Texture> MapPair;
@@ -33,6 +33,12 @@ extern sf::Keyboard::Key dryButton;
 extern sf::Keyboard::Key pleasentButton;
 extern sf::Keyboard::Key wetButton;
 
+//Takes care of the keys for changing gravity
+extern sf::Keyboard::Key upGravityButton;
+extern sf::Keyboard::Key downGravityButton;
+
+//Takes care of the keys for wrath
+extern sf::Keyboard::Key chargeWrathButton;
 
 
 

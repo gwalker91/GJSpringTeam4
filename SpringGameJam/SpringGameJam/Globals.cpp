@@ -8,7 +8,7 @@ int SCREEN_HEIGHT = 600;
 //added a new extern int type
 const int NUM_OF_PEOPLE = 5;
 
-int gravity = 2;
+float gravity = 2;
 
 TextureMap* txtMap = new TextureMap();
 
@@ -25,3 +25,7 @@ sf::Keyboard::Key coldButton = sf::Keyboard::D;
 sf::Keyboard::Key dryButton = sf::Keyboard::Z;
 sf::Keyboard::Key pleasentButton = sf::Keyboard::X;
 sf::Keyboard::Key wetButton = sf::Keyboard::C;
+
+//Takes care of the keys for changing gravity
+sf::Keyboard::Key upGravityButton = sf::Keyboard::O;
+sf::Keyboard::Key downGravityButton = sf::Keyboard::P;
