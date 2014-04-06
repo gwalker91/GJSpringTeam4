@@ -13,15 +13,18 @@
 class Engine
 {
 private:
-	World gameWorld;
+	World* gameWorld;
 	sf::RenderWindow* window;
 	sf::Clock gameClock;
-	
+
 	void loadAssets();
+	void loadTexture(std::string filePath, std::string KeyName);
+
 public:
 	Engine();
 	~Engine();
 	sf::RenderWindow* getWindow();
+	void handleInput();
 	void update();
 	void draw();
 };
