@@ -5,7 +5,8 @@ Particle::Particle(sf::Sprite image, sf::Vector2f position, sf::Vector2f velocit
 	:pImage(image),
 	position(position),
 	velocity(velocity),
-	isAlive(true)
+	isAlive(true),
+	timeToLive(10)
 {
 	pImage.setPosition(position);
 }
@@ -27,10 +28,11 @@ bool Particle::checkState()
 
 void Particle::update(float deltaTime)
 {
-	position += velocity * deltaTime;
+	timeToLive -= deltaTime;
+	position += velocity * (deltaTime * gravity);
 	pImage.setPosition(position);
 
-	if(position.y > SCREEN_HEIGHT)
+	if(position.y > SCREEN_HEIGHT || timeToLive <= 0)
 	{
 		killParticle();
 	}

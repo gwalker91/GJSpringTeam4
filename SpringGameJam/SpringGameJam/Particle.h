@@ -12,6 +12,8 @@ private:
 	sf::Vector2f position;
 	sf::Vector2f velocity;
 	bool isAlive;
+	float timeToLive;
+
 	void killParticle();
 public:
 	Particle(sf::Sprite image, sf::Vector2f position, sf::Vector2f velocity);
