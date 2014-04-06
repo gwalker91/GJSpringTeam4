@@ -44,6 +44,14 @@ sf::RenderWindow* Engine::getWindow()
 
 void Engine::handleInput()
 {
+	if(sf::Keyboard::isKeyPressed(upGravityButton))
+	{
+		gravity += 0.1;
+	}
+	if(sf::Keyboard::isKeyPressed(downGravityButton))
+	{
+		gravity -= 0.1;
+	}
 	gameWorld->handleInput();
 }
 

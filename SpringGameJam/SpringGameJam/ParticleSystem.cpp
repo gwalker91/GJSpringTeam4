@@ -16,7 +16,7 @@ ParticleSystem::~ParticleSystem()
 void ParticleSystem::createParticle()
 {
 	particleList.push_back(new Particle(sf::Sprite(txtMap->at(tKey)), sf::Vector2f(std::rand() % SCREEN_WIDTH, -10.0f), 
-		sf::Vector2f(std::rand() % 10 - 5, std::rand() % 200 + 100)));
+		sf::Vector2f(0, std::rand() % 200 + 100)));
 }
 
 void ParticleSystem::changeTexture(std::string TextureKey)
