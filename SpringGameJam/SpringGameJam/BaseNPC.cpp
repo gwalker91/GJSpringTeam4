@@ -4,13 +4,22 @@
 //for all functions needing to animate, we still need images to load
 //4:41pm:almost done now, just need to finish making sure npcs do not fall through the world
 //and double check everything
+//3:00pm: 95% finished with everything here, just need some help going over
+//code, put in finishing touches and working on update and (maybe) draw functions.
 #include "BaseNPC.h"
 
-//TODO: still need to load image onto BaseNPC.
-BaseNPC::BaseNPC() : HP(5 + (rand() % 16)), isDead(false), onFire(false), maxSpeed(1 + float(rand() % 5)), 
-	currentSpeed(maxSpeed), fallingSpeed(gravity), isChangingDirection(false), DOT(sf::seconds(0.0f)), 
-	despawner(sf::seconds(0.0f)), isActive(false)
+BaseNPC::BaseNPC() 
 {}
+
+BaseNPC::BaseNPC(sf::Sprite human, sf::Vector2f initPosition, bool hot, bool cold) 
+	: HP(5 + (rand() % 16)), isDead(false), onFire(false), maxSpeed(1 + float(rand() % 5)), 
+	  currentSpeed(maxSpeed), fallingSpeed(gravity), isChangingDirection(false), 
+	  DOT(sf::seconds(0.0f)), despawner(sf::seconds(0.0f)), isActive(false), isHot(hot), 
+	  isCold(cold), position(initPosition), Human(human)
+{
+	//when inactive, we should probably put it off screen, then let the spawner "spawn" the npc.
+	Human.setPosition(position);
+}
 
 BaseNPC::~BaseNPC()
 {
@@ -21,7 +30,7 @@ BaseNPC::~BaseNPC()
 
 void BaseNPC::draw(sf::RenderWindow* w)
 {
-
+	w->draw(Human);
 }
 
 void BaseNPC::update(float deltaTime)
@@ -233,7 +242,7 @@ float BaseNPC::changeFallSpeed()
 	return fallingSpeed = gravity;
 }
 
-//only call when npc is being spawned
+//only call when npc is being spawned. should only be done once per spawn.
 void BaseNPC::setPosition()
 {
 	Human.setPosition(sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT * 0.75));
