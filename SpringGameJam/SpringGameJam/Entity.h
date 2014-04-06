@@ -15,7 +15,7 @@ public:
 	//Entity();
 	//~Entity();
 	void update(float deltaTime);
-	void draw(sf::RenderWindow w);
+	void draw(sf::RenderWindow* w);
 };
 
 #endif
