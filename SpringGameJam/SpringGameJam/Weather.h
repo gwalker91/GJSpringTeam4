@@ -2,6 +2,11 @@
 #define WEATHER_H
 
 #include "Globals.h"
+#include "ParticleSystem.h" 
+
+#include <SFML/Graphics.hpp>
+
+#include <iostream>
 
 class Weather
 {
@@ -10,12 +15,14 @@ public:
 	Weather();
 	//destructor
 	~Weather();
+	
+	//handles user input
+	void handleInput();
 
 	//runs updates
 	void update(float deltaTime);
 
-	//handles user input
-	void handleInput();
+	void draw(sf::RenderWindow* w);
 
 	//getters
 	int getMoisture();
@@ -36,6 +43,10 @@ private:
 	//tracks current weather based off
 	//of moisture and tempurature
 	int weatherState;
+
+	int heavyRain, lightRain, noRain;
+
+	ParticleSystem rainSystem;
 };
 
 #endif
