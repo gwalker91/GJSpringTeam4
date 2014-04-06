@@ -45,6 +45,7 @@ float Wrath::getWrathDmg()
 //***HANDLE INPUT***
 void Wrath::handleInput()
 {
+	
 	if(sf::Keyboard::isKeyPressed(chargeWrathButton))
 	{
 		if(!usingWrath)
@@ -59,6 +60,7 @@ void Wrath::handleInput()
 		wrathWidth = 1.0f;
 		chargeWrath = false;
 	}
+	
 }
 
 //***UPDATE***
@@ -79,6 +81,7 @@ void Wrath::update(float deltaTime)
 			wrathWidth += 0.1f;
 	}
 	wrathBar.setTextureRect(sf::IntRect(0, 0, wrathWidth, 50));
+	
 }
 
 void Wrath::draw(sf::RenderWindow* w)
