@@ -1,9 +1,10 @@
-﻿Build started 4/5/2014 5:56:52 PM.
+﻿Build started 4/5/2014 7:57:09 PM.
      1>Project "C:\Users\Todandict\Documents\GitHub\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Touching "Debug\SpringGameJam.unsuccessfulbuild".
        ClCompile:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"../SFML-2.1/include" /ZI /nologo /W3 /WX- /Od /Oy- /D SFML_STATIC /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Engine.cpp
+         Engine.cpp
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -15,15 +16,19 @@
          Debug\Main.obj
          Debug\Spawner.obj
          Debug\Weather.obj
+         Debug\World.obj
          Debug\Wrath.obj
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: __thiscall World::World(void)" (??0World@@QAE@XZ) referenced in function "public: __thiscall Engine::Engine(void)" (??0Engine@@QAE@XZ)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: __thiscall World::~World(void)" (??1World@@QAE@XZ) referenced in function "public: void * __thiscall World::`scalar deleting destructor'(unsigned int)" (??_GWorld@@QAEPAXI@Z)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: void __thiscall World::handleInput(void)" (?handleInput@World@@QAEXXZ) referenced in function "public: void __thiscall Engine::handleInput(void)" (?handleInput@Engine@@QAEXXZ)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: void __thiscall World::update(float)" (?update@World@@QAEXM@Z) referenced in function "public: void __thiscall Engine::update(void)" (?update@Engine@@QAEXXZ)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: void __thiscall World::draw(class sf::RenderWindow *)" (?draw@World@@QAEXPAVRenderWindow@sf@@@Z) referenced in function "public: void __thiscall Engine::draw(void)" (?draw@Engine@@QAEXXZ)
-     1>C:\Users\Todandict\Documents\GitHub\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.exe : fatal error LNK1120: 5 unresolved externals
-     1>Done Building Project "C:\Users\Todandict\Documents\GitHub\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" (build target(s)) -- FAILED.
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\SpringGameJam.exe.embed.manifest" /manifest Debug\SpringGameJam.exe.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         SpringGameJam.vcxproj -> C:\Users\Todandict\Documents\GitHub\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\SpringGameJam.unsuccessfulbuild".
+         Touching "Debug\SpringGameJam.lastbuildstate".
+     1>Done Building Project "C:\Users\Todandict\Documents\GitHub\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" (build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.18
+Time Elapsed 00:00:00.98

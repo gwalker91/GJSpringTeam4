@@ -86,6 +86,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Weather.cpp" />
+    <ClCompile Include="World.cpp" />
     <ClCompile Include="Wrath.cpp" />
   </ItemGroup>
   <ItemGroup>

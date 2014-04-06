@@ -7,6 +7,10 @@
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
+//KTZ was here..
+//added a new extern int type
+const extern int NUM_OF_PEOPLE;
+
 extern int gravity;
 
 typedef std::map<std::string, sf::Texture> TextureMap;
