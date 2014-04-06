@@ -3,6 +3,8 @@
 //Included falling speed, changed walking speed
 //into two different variables: maxspeed and currentspeed
 //included a private method to let npc's speed change.
+//4-6-14, 3:00pm: 95% finished with everything here, just need some help going over
+//code, put in finishing touches and working on update and (maybe) draw functions.
 #ifndef BASENPC_H
 #define BASENPC_H
 
@@ -17,6 +19,7 @@ class BaseNPC : public Entity
 {
 public:
 	BaseNPC();
+	BaseNPC(sf::Sprite human, sf::Vector2f initPosition, bool hot, bool cold);
 	~BaseNPC();
 	void draw(sf::RenderWindow* w);
 	void update(float deltaTime);
@@ -69,6 +72,7 @@ private:
 	float changeFallSpeed();
 	float fallingSpeed;
 	sf::Sprite Human;
+	sf::Vector2f position;
 	sf::Time DOT; //moar dotz NOAW! (damage over time)
 	sf::Time despawner;
 };
