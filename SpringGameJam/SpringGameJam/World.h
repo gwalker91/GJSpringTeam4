@@ -7,12 +7,14 @@
 #include "Weather.h"
 #include "Spawner.h"
 #include "Globals.h"
+#include "Wrath.h"
 
 class World //: public Entity
 {
 private:
 	Weather* gameWeather;
 	//Spawner* gameSpawner;
+	Wrath* gameWrath;
 	sf::Sprite background;
 public:
 	World();

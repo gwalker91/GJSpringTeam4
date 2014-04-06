@@ -10,10 +10,11 @@
 class ParticleSystem
 {
 private:
-	std::vector<Particle*> particleList;
+	std::vector<Particle> particleList;
 	std::string tKey;
 	int mParticles;
 	float timeToSpawnDrop;
+	float spawnDensity;
 
 	void createParticle();
 	
@@ -22,6 +23,7 @@ public:
 	~ParticleSystem();
 	void changeTexture(std::string TextureKey);
 	void changeNumParticles(int maxParticles);
+	void changeDensity(int weather);
 	void clearSystem();
 	void update(float deltaTime);
 	void draw(sf::RenderWindow* w);
