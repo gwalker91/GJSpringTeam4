@@ -8,7 +8,6 @@ Engine::Engine()
 	window = new sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 
 	loadAssets();
-
 	gameWorld = new World();
 }
 
@@ -23,6 +22,7 @@ void Engine::loadAssets()
 	loadTexture("Images/NightBackground.png", "NightBackground");
 	loadTexture("Images/EveningBackGround.png", "EveningBackGround");
 	loadTexture("Images/DayBackground.png", "DayBackground");
+	loadTexture("Images/RainDrop.png", "RainDrop");
 }
 
 void Engine::loadTexture(std::string filePath, std::string KeyName)
@@ -44,6 +44,14 @@ sf::RenderWindow* Engine::getWindow()
 
 void Engine::handleInput()
 {
+	if(sf::Keyboard::isKeyPressed(upGravityButton))
+	{
+		gravity += 0.1;
+	}
+	if(sf::Keyboard::isKeyPressed(downGravityButton))
+	{
+		gravity -= 0.1;
+	}
 	gameWorld->handleInput();
 }
 

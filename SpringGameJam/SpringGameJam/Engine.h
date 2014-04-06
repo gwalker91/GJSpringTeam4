@@ -16,7 +16,7 @@ private:
 	World* gameWorld;
 	sf::RenderWindow* window;
 	sf::Clock gameClock;
-	
+
 	void loadAssets();
 	void loadTexture(std::string filePath, std::string KeyName);
 

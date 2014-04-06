@@ -1,38 +1,38 @@
-﻿Build started 4/5/2014 5:54:12 PM.
-     1>Project "C:\Users\Nathan\Desktop\GJ S2014\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" on node 2 (build target(s)).
+﻿Build started 4/5/2014 11:23:09 PM.
+     1>Project "C:\Users\Grant\Desktop\Games\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\SpringGameJam.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\SpringGameJam.unsuccessfulbuild".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"../SFML-2.1/include" /ZI /nologo /W3 /WX- /Od /Oy- /D SFML_STATIC /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt BaseNPC.cpp Engine.cpp Main.cpp Weather.cpp Wrath.cpp
-         Wrath.cpp
-     1>c:\users\nathan\desktop\gj s2014\gjspringteam4\springgamejam\springgamejam\wrath.cpp(11): warning C4154: deletion of an array expression; conversion to pointer supplied
-         Weather.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"../SFML-2.1/include" /ZI /nologo /W3 /WX- /Od /Oy- /D SFML_STATIC /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Engine.cpp
          Engine.cpp
-         BaseNPC.cpp
-     1>c:\users\nathan\desktop\gj s2014\gjspringteam4\springgamejam\springgamejam\basenpc.cpp(121): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-         Compiling...
-         Main.cpp
-         Generating Code...
+     1>c:\users\grant\desktop\games\gjspringteam4\springgamejam\springgamejam\engine.cpp(49): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\grant\desktop\games\gjspringteam4\springgamejam\springgamejam\engine.cpp(53): warning C4305: '-=' : truncation from 'double' to 'float'
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Nathan\Desktop\GJ S2014\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.exe" /INCREMENTAL /NOLOGO /LIBPATH:"../SFML-2.1/lib" "sfml-graphics-s-d.lib" "sfml-window-s-d.lib" "sfml-system-s-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SpringGameJam.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Nathan\Desktop\GJ S2014\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Nathan\Desktop\GJ S2014\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.lib" /MACHINE:X86 Debug\SpringGameJam.exe.embed.manifest.res
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Grant\Desktop\Games\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.exe" /INCREMENTAL /NOLOGO /LIBPATH:"../SFML-2.1/lib" "sfml-graphics-s-d.lib" "sfml-window-s-d.lib" "sfml-system-s-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SpringGameJam.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Grant\Desktop\Games\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Grant\Desktop\Games\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.lib" /MACHINE:X86 Debug\SpringGameJam.exe.embed.manifest.res
          Debug\BaseNPC.obj
          Debug\Engine.obj
          Debug\Entity.obj
          Debug\Globals.obj
          Debug\Main.obj
+         Debug\Particle.obj
+         Debug\ParticleSystem.obj
+         Debug\Spawner.obj
          Debug\Weather.obj
+         Debug\World.obj
          Debug\Wrath.obj
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: __thiscall World::World(void)" (??0World@@QAE@XZ) referenced in function "public: __thiscall Engine::Engine(void)" (??0Engine@@QAE@XZ)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: __thiscall World::~World(void)" (??1World@@QAE@XZ) referenced in function "public: void * __thiscall World::`scalar deleting destructor'(unsigned int)" (??_GWorld@@QAEPAXI@Z)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: void __thiscall World::handleInput(void)" (?handleInput@World@@QAEXXZ) referenced in function "public: void __thiscall Engine::handleInput(void)" (?handleInput@Engine@@QAEXXZ)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: void __thiscall World::update(float)" (?update@World@@QAEXM@Z) referenced in function "public: void __thiscall Engine::update(void)" (?update@Engine@@QAEXXZ)
-     1>Engine.obj : error LNK2019: unresolved external symbol "public: void __thiscall World::draw(class sf::RenderWindow *)" (?draw@World@@QAEXPAVRenderWindow@sf@@@Z) referenced in function "public: void __thiscall Engine::draw(void)" (?draw@Engine@@QAEXXZ)
-     1>C:\Users\Nathan\Desktop\GJ S2014\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.exe : fatal error LNK1120: 5 unresolved externals
-     1>Done Building Project "C:\Users\Nathan\Desktop\GJ S2014\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" (build target(s)) -- FAILED.
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\SpringGameJam.exe.embed.manifest" /manifest Debug\SpringGameJam.exe.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         SpringGameJam.vcxproj -> C:\Users\Grant\Desktop\Games\GJSpringTeam4\SpringGameJam\Debug\SpringGameJam.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\SpringGameJam.unsuccessfulbuild".
+         Touching "Debug\SpringGameJam.lastbuildstate".
+     1>Done Building Project "C:\Users\Grant\Desktop\Games\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" (build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:12.76
+Time Elapsed 00:00:01.24

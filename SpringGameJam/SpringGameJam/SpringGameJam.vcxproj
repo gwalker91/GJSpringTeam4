@@ -60,6 +60,9 @@
       <AdditionalLibraryDirectories>../SFML-2.1/lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -84,7 +87,11 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Weather.cpp" />
+    <ClCompile Include="World.cpp" />
     <ClCompile Include="Wrath.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +99,8 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Weather.h" />
     <ClInclude Include="World.h" />

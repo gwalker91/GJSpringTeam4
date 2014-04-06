@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+//#include <vld.h>
+
 #include "Engine.h"
 
 int main()
@@ -25,6 +27,7 @@ int main()
     }
 
 	delete e;
+	delete txtMap;
 
     return 0;
 }
