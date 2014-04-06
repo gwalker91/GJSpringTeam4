@@ -4,7 +4,8 @@
 ParticleSystem::ParticleSystem(std::string TextureKey, int maxParticles)
 	:tKey(TextureKey),
 	mParticles(maxParticles),
-	timeToSpawnDrop(0)
+	timeToSpawnDrop(0),
+	spawnDensity(0.01)
 {
 }
 
@@ -22,6 +23,38 @@ void ParticleSystem::createParticle()
 void ParticleSystem::changeTexture(std::string TextureKey)
 {
 	tKey = TextureKey;
+	if(particleList.size() > 0)
+	{
+		for (int i = 0; i < particleList.size(); i++)
+		{
+			if(particleList.at(i)->checkState())
+				particleList.at(i)->changeTexture(sf::Sprite(txtMap->at(tKey)));
+			else
+			{
+				particleList.erase(particleList.begin() + i);
+			}
+		}
+	}
+}
+
+void ParticleSystem::changeDensity(int weather)
+{
+	switch (weather)
+	{
+	//Dry Weather
+	case 0:
+		spawnDensity = 100;
+		break;
+	//Mild weather
+	case 1:
+		spawnDensity = 0.1;
+		break;
+	//Heavy Rain
+	case 2:
+		spawnDensity = 0.01;
+		break;
+
+	}
 }
 
 void ParticleSystem::clearSystem()
@@ -37,7 +70,7 @@ void ParticleSystem::changeNumParticles(int maxParticles)
 void ParticleSystem::update(float deltaTime)
 {
 	timeToSpawnDrop += deltaTime;
-	if(timeToSpawnDrop > 0.01 && particleList.size() < mParticles)
+	if(timeToSpawnDrop > spawnDensity && particleList.size() < mParticles)
 	{
 		createParticle();
 		timeToSpawnDrop = 0;

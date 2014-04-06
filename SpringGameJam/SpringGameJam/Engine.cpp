@@ -23,6 +23,7 @@ void Engine::loadAssets()
 	loadTexture("Images/EveningBackGround.png", "EveningBackGround");
 	loadTexture("Images/DayBackground.png", "DayBackground");
 	loadTexture("Images/RainDrop.png", "RainDrop");
+	loadTexture("Images/Snow.png", "Snow");
 }
 
 void Engine::loadTexture(std::string filePath, std::string KeyName)

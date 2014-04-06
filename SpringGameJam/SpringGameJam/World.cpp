@@ -2,9 +2,9 @@
 #include "World.h"
 
 World::World()
-	:background(txtMap->at("DayBackground"))
+	:background(txtMap->at("DayBackground")),
+	gameWeather(new Weather())
 {
-	gameWeather = new Weather();
 	//gameSpawner = new Spawner();
 }
 

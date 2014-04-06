@@ -19,6 +19,7 @@ public:
 	Particle(sf::Sprite image, sf::Vector2f position, sf::Vector2f velocity);
 	~Particle();
 	bool checkState();
+	void changeTexture(sf::Sprite image);
 	void update(float deltaTime);
 	void draw(sf::RenderWindow* w);
 

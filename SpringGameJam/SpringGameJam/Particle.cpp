@@ -26,6 +26,11 @@ bool Particle::checkState()
 	return isAlive;
 }
 
+void Particle::changeTexture(sf::Sprite image)
+{
+	pImage = image;
+}
+
 void Particle::update(float deltaTime)
 {
 	timeToLive -= deltaTime;
