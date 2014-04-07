@@ -12,7 +12,7 @@ BaseNPC::BaseNPC()
 {}
 
 BaseNPC::BaseNPC(sf::Sprite human, sf::Vector2f initPosition, bool hot, bool cold) 
-	: HP(5 + (rand() % MAX_HEALTH)), isDead(false), onFire(false), maxSpeed(1 + float(rand() % 2)), 
+	: HP(MIN_HEALTH + (rand() % MAX_HEALTH)), isDead(false), onFire(false), maxSpeed(1*0 + float(rand() % 2)*0), 
 	  currentSpeed(maxSpeed), fallingSpeed(gravity), isChangingDirection(false), 
 	  DOT(sf::seconds(0.0f)), despawner(sf::seconds(0.0f)), isActive(false), isHot(hot), 
 	  isCold(cold), position(initPosition), Human(human), col(0), row(0), spriteSwap(sf::seconds(1.5f))
@@ -50,7 +50,7 @@ void BaseNPC::update(float deltaTime)
 		if(spriteSwap <= sf::seconds(0.0f))
 		{
 			spriteSwap = sf::seconds(1.5f);
-			updateSprite();
+			updateWalkSprite();
 		}
 		//50x100
 	}
@@ -61,16 +61,13 @@ void BaseNPC::update(float deltaTime)
 
 }
 
-void BaseNPC::updateSprite()
+void BaseNPC::updateWalkSprite()
 {
 	col++;
 
 	if(col == 3)
 	{
 		col = 0;
-		row++;
-		if(row = 4)
-			row = 0;
 	}
 	Human.setTextureRect(sf::IntRect(col * 50, row * 100, 50, 100));
 }
@@ -146,10 +143,10 @@ void BaseNPC::setIsHot(float deltaTime)
 	}
 }
 
-void BaseNPC::setIsWet(float deltaTime)
+/*void BaseNPC::setIsWet(float deltaTime)
 {
 	//play animation of npc wet
-}
+}*/
 
 void BaseNPC::setIsDead()
 {
@@ -165,63 +162,63 @@ void BaseNPC::changeState(Weather weather)
 	{
 		isCold = false;
 		isHot = false;
-		isWet = true;
+		//isWet = true;
 	}
 	//hot and dry
 	else if(weather.getTemperature() > 0 && weather.getMoisture() < 0)
 	{
 		isCold = false;
 		isHot = true;
-		isWet = false;
+		//isWet = false;
 	}
 	//hot and pleasent
 	else if(weather.getTemperature() > 0 && weather.getMoisture() == 0)
 	{
 		isCold = false;
 		isHot = true;
-		isWet = false;
+		//isWet = false;
 	}
 	//cold and dry
 	else if(weather.getTemperature() < 0 && weather.getMoisture() < 0)
 	{
 		isCold = true;
 		isHot = false;
-		isWet = false;
+		//isWet = false;
 	}
 	//cold and wet
 	else if(weather.getTemperature() < 0 && weather.getMoisture() > 0)
 	{
 		isCold = true;
 		isHot = false;
-		isWet = false;
+		//isWet = false;
 	}
 	//cold and pleasent
 	else if(weather.getTemperature() < 0 && weather.getMoisture() == 0)
 	{
 		isCold = true;
 		isHot = false;
-		isWet = false;
+		//isWet = false;
 	}
 	//mild and pleasent
 	else if(weather.getTemperature() == 0 && weather.getMoisture() == 0)
 	{
 		isCold = false;
 		isHot = false;
-		isWet = false;
+		//isWet = false;
 	}
 	//mild and wet
 	else if(weather.getTemperature() == 0 && weather.getMoisture() > 0)
 	{
 		isCold = false;
 		isHot = false;
-		isWet = true;
+		//isWet = true;
 	}
 	//mild and dry
 	else if(weather.getTemperature() == 0 && weather.getMoisture() < 0)
 	{
 		isCold = false;
 		isHot = false;
-		isWet = false;
+		//isWet = false;
 	}
 }
 
@@ -252,13 +249,11 @@ int BaseNPC::changeDirection()
 
 float BaseNPC::changeSpeed()
 {
-	//run through this function once at initial start and everytime gravity is changed
 	return maxSpeed - gravity;
 }
 
 float BaseNPC::changeFallSpeed()
 {
-	//run through this function once at initial start and everytime gravity is changed
 	return fallingSpeed = gravity;
 }
 

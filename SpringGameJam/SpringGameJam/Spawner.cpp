@@ -10,7 +10,7 @@
 #include "Spawner.h"
 
 Spawner::Spawner(sf::Sprite hut, sf::Vector2f initPosition) 
-	: spawnTimer(sf::seconds(0.0f)), peopleCounter(0),
+	: spawnTimer(sf::seconds(0.0f)), village(5), town(20), city(50),
 	  hutImage(hut), position(initPosition), wrathApplied(false)
 {
 	hutImage.setPosition(position);
@@ -18,7 +18,8 @@ Spawner::Spawner(sf::Sprite hut, sf::Vector2f initPosition)
 	for(int i = 0; i < NUM_OF_PEOPLE; i++)
 	{
 		//need to modify this function with boolean values
-		peopleMaker.listOfPeople.push_back(new BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), sf::Vector2f(400.0f, 400.0f), hot, cold));
+		//peopleMaker.listOfPeople.push_back(new BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), sf::Vector2f(400.0f, 400.0f), hot, cold));
+		listOfPeople.push_back(BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), sf::Vector2f(400.0f, 400.0f), hot, cold));
 		num_of_alive_people++;
 	}
 }
@@ -38,6 +39,14 @@ Spawner::~Spawner()
 void Spawner::draw(sf::RenderWindow* w)
 {
 	w->draw(hutImage);
+	//call the draw method for npcs in here
+	for(int i = 0; i < listOfPeople.size(); i++)
+	{
+		if(listOfPeople.at(i).isActive)
+		{
+			listOfPeople.at(i).draw(w);
+		}
+	}
 }
 
 void Spawner::update(float deltaTime)
@@ -45,8 +54,19 @@ void Spawner::update(float deltaTime)
 	if(num_of_alive_people < NUM_OF_PEOPLE)
 		createPeople();
 
-	if(num_of_active_people < peopleMaker.listOfPeople.size())
+	if(num_of_active_people < listOfPeople.size())
 		spawnPeople(deltaTime);
+
+	if(listOfPeople.size() > 0)
+	{
+		for(int i = 0; i < listOfPeople.size(); i++)
+		{
+			if(!listOfPeople.at(i).isDead)
+				listOfPeople.at(i).update(deltaTime);
+			else
+				listOfPeople.erase(listOfPeople.begin() + i);
+		}
+	}
 }
 
 //maybe the spawner can be covered in snow for cold temperatures, or look wet when its wet, etc.
@@ -124,18 +144,21 @@ void Spawner::spawnPeople(float deltaTime)
 	//every x amount of seconds, we will spawn new people from the list (the list will be
 	//repopulated).
 	spawnTimer = spawnTimer + sf::seconds(deltaTime);
+	//std::cout << spawnTimer.asMilliseconds() << std::endl;
 	if(spawnTimer > sf::seconds(2.5f))
 	{
+
 		spawnTimer = sf::seconds(0.0f);
-		for(unsigned int i = 0; i < peopleMaker.listOfPeople.size(); i++)
+		for(unsigned int i = 0; i < listOfPeople.size(); i++)
 		{
-			if(!peopleMaker.listOfPeople[i]->isActive)
+			if(!listOfPeople.at(i).isActive)
 			{
 				//spawn npc, then break out of loop
-				peopleMaker.listOfPeople[i]->isActive = true;
-				peopleMaker.listOfPeople[i]->setPosition();
-				peopleMaker.listOfPeople.erase(peopleMaker.listOfPeople.begin() + i);
+				listOfPeople.at(i).isActive = true;
+				listOfPeople.at(i).setPosition();
 				num_of_active_people++;
+				std::cout << "Spawned" << std::endl;
+				std::cout << num_of_active_people << std::endl;
 				break;
 			}
 			//otherwise keep searching for an inactive npc
@@ -147,8 +170,9 @@ void Spawner::spawnPeople(float deltaTime)
 void Spawner::createPeople()
 {
 	//here, we'll make new people ready to be spawned.
-	peopleMaker.listOfPeople.push_back(new BaseNPC(Human, position, hot, cold));
+	listOfPeople.push_back(BaseNPC(Human, position, hot, cold));
 	num_of_alive_people++;
+	std::cout << "num_people: " << num_of_alive_people << std::endl;
 }
 
 bool Spawner::hasWrathApplied()
@@ -163,9 +187,9 @@ void Spawner::spreadWrathDmg(float wrathDmg)
 	{
 		int finalDmg = wrathDmg;
 		wrathApplied = true;
-		for(int i = 0; i < peopleMaker.listOfPeople.size(); i++)
+		for(int i = 0; i < listOfPeople.size(); i++)
 		{
-			peopleMaker.listOfPeople[i]->damageHP(finalDmg);
+			listOfPeople[i].damageHP(finalDmg);
 		}
 	}
 }

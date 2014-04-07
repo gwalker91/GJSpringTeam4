@@ -7,7 +7,8 @@ int SCREEN_HEIGHT = 600;
 //KTZ was here..
 //added a new int to limit how many people can exist at once
 const int NUM_OF_PEOPLE = 5;
-const int MAX_HEALTH = 20;
+const int MAX_HEALTH = 15;
+const int MIN_HEALTH = 5;
 
 //KTZ was here...
 //added another int to track how many people are still alive

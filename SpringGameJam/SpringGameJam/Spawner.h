@@ -27,10 +27,10 @@ public:
 	void createPeople();
 	bool hasWrathApplied();
 	void spreadWrathDmg(float wrathDmg);
-	//std::vector<BaseNPC*> listOfAlivePeople;
 private:
+	std::vector<BaseNPC> listOfPeople;
 	BaseNPC peopleMaker;
-	int peopleCounter;
+	int village, town, city;
 	int currentState;
 	sf::Sprite hutImage;
 	sf::Sprite Human;
