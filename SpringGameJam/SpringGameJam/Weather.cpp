@@ -5,16 +5,16 @@ Weather::Weather()
 	time(0),
 	rainSystem(ParticleSystem("RainDrop", 500)),
 	heavyRain(600), lightRain(150), noRain(0),
-	//clouds(new sf::Sprite((*txtMap->at("Clouds")))),
-	darkness(new sf::Sprite((*txtMap->at("Darkness"))))
+	showClouds(true),
+	clouds(*txtMap->at("Clouds")),
+	darkness(*txtMap->at("Darkness"))
 {
 
 }
 
 Weather::~Weather()
 {
-	//delete clouds;
-	delete darkness;
+
 }
 
 void Weather::handleInput()
@@ -61,7 +61,9 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(2);
-		darkness->setColor(sf::Color(255,255,255,1000));
+		darkness.setColor(sf::Color(255,255,255,800));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("HeavyClouds"));
 
 	}
 	//hot and dry
@@ -71,8 +73,8 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeDensity(0);
 		rainSystem.clearSystem();
-		darkness->setColor(sf::Color(255,255,255,0));
-
+		darkness.setColor(sf::Color(255,255,255,0));
+		showClouds = false;
 	}
 	//hot and pleasent
 	else if(temperature > 0 && moisture == 0)
@@ -81,7 +83,9 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(1);
-		darkness->setColor(sf::Color(255,255,255,50));
+		darkness.setColor(sf::Color(255,255,255,50));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("Clouds"));
 
 	}
 	//cold and dry
@@ -91,8 +95,8 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeDensity(0);
 		rainSystem.clearSystem();
-		darkness->setColor(sf::Color(255,255,255,0));
-
+		darkness.setColor(sf::Color(255,255,255,0));
+		showClouds = false;
 	}
 	//cold and wet
 	else if(temperature < 0 && moisture > 0)
@@ -101,8 +105,9 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeTexture("Snow");
 		rainSystem.changeDensity(2);
-		darkness->setColor(sf::Color(255,255,255,1000));
-
+		darkness.setColor(sf::Color(255,255,255,800));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("HeavyClouds"));
 	}
 	//cold and pleasent
 	else if(temperature < 0 && moisture == 0)
@@ -111,7 +116,7 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeTexture("Snow");
 		rainSystem.changeDensity(1);
-		darkness->setColor(sf::Color(255,255,255,50));
+		darkness.setColor(sf::Color(255,255,255,50));
 
 	}
 	//mild and pleasent
@@ -121,7 +126,9 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(1);
-		darkness->setColor(sf::Color(255,255,255,50));
+		darkness.setColor(sf::Color(255,255,255,50));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("Clouds"));
 
 	}
 	//mild and wet
@@ -131,7 +138,9 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(2);
-		darkness->setColor(sf::Color(255,255,255,1000));
+		darkness.setColor(sf::Color(255,255,255,800));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("HeavyClouds"));
 
 	}
 	//mild and dry
@@ -141,7 +150,8 @@ void Weather::update(float deltaTime)
 
 		rainSystem.changeDensity(0);
 		rainSystem.clearSystem();
-		darkness->setColor(sf::Color(255,255,255,0));
+		darkness.setColor(sf::Color(255,255,255,0));
+		showClouds = false;
 
 	}
 	//error: temp and moisture outside normal paramaters
@@ -155,9 +165,10 @@ void Weather::update(float deltaTime)
 
 void Weather::draw(sf::RenderWindow* w)
 {
-	w->draw(*darkness);
+	w->draw(darkness);
 	rainSystem.draw(w);
-	//w->draw(*clouds);
+	if(showClouds)
+		w->draw(clouds);
 }
 
 //****getters****

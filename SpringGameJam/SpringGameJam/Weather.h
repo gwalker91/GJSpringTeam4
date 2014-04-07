@@ -46,10 +46,11 @@ private:
 	int weatherState;
 
 	int heavyRain, lightRain, noRain;
+	bool showClouds;
 
 	ParticleSystem rainSystem;
-	sf::Sprite* clouds;
-	sf::Sprite* darkness;
+	sf::Sprite clouds;
+	sf::Sprite darkness;
 };
 
 #endif

@@ -20,19 +20,19 @@ Engine::~Engine()
 
 void Engine::loadAssets()
 {
-	//Backgrounds
-	//reg
-	loadTexture("Images/NightBackground.png", "regNightBackground");
-	loadTexture("Images/EveningBackGround.png", "regEveningBackground");
-	loadTexture("Images/DayBackground.png", "regDayBackground");
+	//Backgroundsll
+	//regllll
+	loadTexture("Images/BackgroundPleasantNight.png", "regNightBackground");
+	loadTexture("Images/BackgroundPleasantEve.png", "regEveBackground");
+	loadTexture("Images/BackgroundPleasantDay.png", "regDayBackground");
 	//cold
-	loadTexture("Images/NightBackground.png", "coldNightBackground");
-	loadTexture("Images/EveningBackGround.png", "coldEveningBackground");
-	loadTexture("Images/DayBackground.png", "coldDayBackground");
+	loadTexture("Images/BackgroundColdNight.png", "coldNightBackground");
+	loadTexture("Images/BackgroundColdEve.png", "coldEveBackground");
+	loadTexture("Images/BackgroundColdDay.png", "coldDayBackground");
 	//hot
-	loadTexture("Images/NightBackground.png", "hotNightBackground");
-	loadTexture("Images/EveningBackGround.png", "hotEveningBackground");
-	loadTexture("Images/DayBackground.png", "hotDayBackground");
+	loadTexture("Images/BackgroundHotNight.png", "hotNightBackground");
+	loadTexture("Images/BackgroundHotEve.png", "hotEveBackground");
+	loadTexture("Images/BackgroundHotDay.png", "hotDayBackground");
 
 
 	//Particle textures
@@ -40,11 +40,15 @@ void Engine::loadAssets()
 	loadTexture("Images/Snow.png", "Snow");
 
 	//Wrath Textures
-	loadTexture("Images/Wrath.png", "Wrath");
+	loadTexture("Images/WrathSpriteSheet.png", "Wrath");
 	loadTexture("Images/WrathBar.png", "WrathBar");
 
 	//Darkness filter texture
 	loadTexture("Images/darkness.png", "Darkness");
+
+	//Weather textures
+	loadTexture("Images/clouds.png", "Clouds");
+	loadTexture("Images/cloudsHeavy.png", "HeavyClouds");	
 
 	//KTZ was here...
 	//added the .png files as textures for the npcs

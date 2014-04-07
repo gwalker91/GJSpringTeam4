@@ -17,12 +17,9 @@ private:
 	Wrath* gameWrath;
 
 	int lastTemp;
+	int timeOfDay;
 
 	sf::Sprite background;
-
-	sf::Texture dayBackground;
-	sf::Texture eveningBackground;
-	sf::Texture nightBackground;
 
 	void backGroundSwap();
 
