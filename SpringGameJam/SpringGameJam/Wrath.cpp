@@ -7,7 +7,7 @@ Wrath::Wrath()
 	wrathPower(0),
 	usingWrath(false),
 	chargeWrath(false),
-	spriteTimer(1),
+	spriteTimer(0.5f),
 	row(0), col(0),
 	wrathWidth(1.0f)
 {
@@ -42,9 +42,32 @@ float Wrath::getWrathDmg()
 	return wrathPower;
 }
 
+void Wrath::getWeather(int weather)
+{
+	switch (weather)
+	{
+	case 1:
+		row = 1;
+		break;
+	case 3:
+	case 4:
+	case 5:
+		row = 2;
+		break;
+	case 0:
+	case 2:
+	case 6:
+	case 7:
+	case 8:
+		row = 0;
+		break;
+	}
+}
+
 //***HANDLE INPUT***
 void Wrath::handleInput()
 {
+	
 	if(sf::Keyboard::isKeyPressed(chargeWrathButton))
 	{
 		if(!usingWrath)
@@ -59,6 +82,7 @@ void Wrath::handleInput()
 		wrathWidth = 1.0f;
 		chargeWrath = false;
 	}
+	
 }
 
 //***UPDATE***
@@ -70,7 +94,7 @@ void Wrath::update(float deltaTime)
 		if(spriteTimer <= 0)
 		{
 			updateSprite();
-			spriteTimer = 1;
+			spriteTimer = 0.5f;
 		}
 	}
 	if(chargeWrath)
@@ -79,6 +103,7 @@ void Wrath::update(float deltaTime)
 			wrathWidth += 0.1f;
 	}
 	wrathBar.setTextureRect(sf::IntRect(0, 0, wrathWidth, 50));
+	
 }
 
 void Wrath::draw(sf::RenderWindow* w)

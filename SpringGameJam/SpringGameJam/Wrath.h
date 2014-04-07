@@ -13,6 +13,7 @@ public:
 
 	bool checkWrathing();
 	float getWrathDmg();
+	void getWeather(int weather);
 
 	//handle's user input
 	void handleInput();

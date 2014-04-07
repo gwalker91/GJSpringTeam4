@@ -4,7 +4,10 @@ Weather::Weather()
 	:temperature(0), moisture(0),
 	time(0),
 	rainSystem(ParticleSystem("RainDrop", 500)),
-	heavyRain(600), lightRain(150), noRain(0)
+	heavyRain(600), lightRain(150), noRain(0),
+	showClouds(true),
+	clouds(*txtMap->at("Clouds")),
+	darkness(*txtMap->at("Darkness"))
 {
 
 }
@@ -55,83 +58,101 @@ void Weather::update(float deltaTime)
 	if(temperature > 0 && moisture > 0)
 	{
 		weatherState = 0;
-		//rainSystem.changeNumParticles(heavyRain);
+
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(2);
-		//std::cout << "Hot and Wet" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,800));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("HeavyClouds"));
+
 	}
 	//hot and dry
 	else if(temperature > 0 && moisture < 0)
 	{
 		weatherState = 1;
-		//rainSystem.changeNumParticles(noRain);
+
 		rainSystem.changeDensity(0);
 		rainSystem.clearSystem();
-		//std::cout << "hot and dry" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,0));
+		showClouds = false;
 	}
 	//hot and pleasent
 	else if(temperature > 0 && moisture == 0)
 	{
 		weatherState = 2;
-		//rainSystem.changeNumParticles(lightRain);
+
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(1);
-		//std::cout << "hot and pleasent" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,50));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("Clouds"));
+
 	}
 	//cold and dry
 	else if(temperature < 0 && moisture < 0)
 	{
 		weatherState = 3;
-		//rainSystem.changeNumParticles(noRain);
+
 		rainSystem.changeDensity(0);
 		rainSystem.clearSystem();
-		//std::cout << "cold and dry" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,0));
+		showClouds = false;
 	}
 	//cold and wet
 	else if(temperature < 0 && moisture > 0)
 	{
 		weatherState = 4;
-		//rainSystem.changeNumParticles(heavyRain);
+
 		rainSystem.changeTexture("Snow");
 		rainSystem.changeDensity(2);
-		//std::cout << "cold and wet" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,800));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("HeavyClouds"));
 	}
 	//cold and pleasent
 	else if(temperature < 0 && moisture == 0)
 	{
 		weatherState = 5;
-		//rainSystem.changeNumParticles(lightRain);
+
 		rainSystem.changeTexture("Snow");
 		rainSystem.changeDensity(1);
-		//std::cout << "cold and pleasent" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,50));
+
 	}
 	//mild and pleasent
 	else if(temperature == 0 && moisture == 0)
 	{
 		weatherState = 6;
-		//rainSystem.changeNumParticles(lightRain);
+
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(1);
-		//std::cout << "mild and pleasent" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,50));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("Clouds"));
+
 	}
 	//mild and wet
 	else if(temperature == 0 && moisture > 0)
 	{
 		weatherState = 7;
-		//rainSystem.changeNumParticles(heavyRain);
+
 		rainSystem.changeTexture("RainDrop");
 		rainSystem.changeDensity(2);
-		//std::cout << "mild and wet" << std::endl;
+		darkness.setColor(sf::Color(255,255,255,800));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("HeavyClouds"));
+
 	}
 	//mild and dry
 	else if(temperature == 0 && moisture < 0)
 	{
 		weatherState = 8;
-		//rainSystem.changeNumParticles(noRain);
+
 		rainSystem.changeDensity(0);
 		rainSystem.clearSystem();
+		darkness.setColor(sf::Color(255,255,255,0));
+		showClouds = false;
 
-		//std::cout << "mild and dry" << std::endl;
 	}
 	//error: temp and moisture outside normal paramaters
 	else
@@ -144,7 +165,10 @@ void Weather::update(float deltaTime)
 
 void Weather::draw(sf::RenderWindow* w)
 {
+	w->draw(darkness);
 	rainSystem.draw(w);
+	if(showClouds)
+		w->draw(clouds);
 }
 
 //****getters****
@@ -180,4 +204,10 @@ void Weather::setTime(int newTime)
 {
 	time = newTime;
 }
+
+int Weather::getWeather()
+{
+	return weatherState;
+}
+
 

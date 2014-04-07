@@ -28,6 +28,7 @@ public:
 	int getMoisture();
 	int getTemperature();
 	int getTime();
+	int getWeather();
 
 	//setters
 	void setMoisture(int newMoist);
@@ -45,8 +46,11 @@ private:
 	int weatherState;
 
 	int heavyRain, lightRain, noRain;
+	bool showClouds;
 
 	ParticleSystem rainSystem;
+	sf::Sprite clouds;
+	sf::Sprite darkness;
 };
 
 #endif
