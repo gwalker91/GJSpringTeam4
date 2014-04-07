@@ -12,13 +12,16 @@ BaseNPC::BaseNPC()
 {}
 
 BaseNPC::BaseNPC(sf::Sprite human, sf::Vector2f initPosition, bool hot, bool cold) 
-	: HP(MIN_HEALTH + (rand() % MAX_HEALTH)), isDead(false), onFire(false), maxSpeed(1*0 + float(rand() % 2)*0), 
-	  currentSpeed(maxSpeed), fallingSpeed(gravity), isChangingDirection(false), 
-	  DOT(sf::seconds(0.0f)), despawner(sf::seconds(0.0f)), isActive(false), isHot(hot), 
-	  isCold(cold), position(initPosition), Human(human), col(0), row(0), spriteSwap(sf::seconds(1.5f))
+	: HP(MIN_HEALTH + (rand() % MAX_HEALTH)), isDead(false), onFire(false), maxSpeed(100), 
+	  currentSpeed(maxSpeed), fallingSpeed(300), isChangingDirection(false), idling(true), 
+	  DOT(0.0f), despawner(0.0f), isActive(true), isHot(hot), 
+	  isCold(cold), position(initPosition), Human(human), col(0), row(0), spriteSwap(0.1f),
+	  idleCols(4), walkingCols(5), dyingCols(4), totalCols(idleCols), timeToWalk(1.5f), randNum(0)
 {
 	//when inactive, we should probably put it off screen, then let the spawner "spawn" the npc.
 	Human.setPosition(position);
+	Human.setTextureRect(sf::IntRect(0, 0, 50, 100));
+
 }
 
 BaseNPC::~BaseNPC()
@@ -40,24 +43,26 @@ void BaseNPC::update(float deltaTime)
 		setIsDead();
 	if(!isDead)
 	{
+		spriteSwap -= deltaTime;
 		//TODO: getting the npc to appear on screen, walking about
 		//need to be able to access weather as is
 		//changeState(weather);
 		changeSpeed();
 		changeFallSpeed();
-		walk();
-		verticalMove();
-		if(spriteSwap <= sf::seconds(0.0f))
+		walk(deltaTime);
+		verticalMove(deltaTime);
+		if(spriteSwap <= 0.0f)
 		{
-			spriteSwap = sf::seconds(1.5f);
+			spriteSwap = 0.1f;
 			updateWalkSprite();
 		}
 		//50x100
 	}
-	else
-	{
-		despawnTimer(deltaTime);
-	}
+	//else
+	//{
+	//	despawnTimer(deltaTime);
+	//}
+
 
 }
 
@@ -65,37 +70,55 @@ void BaseNPC::updateWalkSprite()
 {
 	col++;
 
-	if(col == 3)
+	if(col == totalCols)
 	{
 		col = 0;
 	}
 	Human.setTextureRect(sf::IntRect(col * 50, row * 100, 50, 100));
 }
 
-void BaseNPC::walk()
+void BaseNPC::walk(float deltaTime)
 {
 	//play walking animation
 	//move around using current speed
 	//at random times, the npc's direction will change
-	if(rand() % 1000 > 900)
+	timeToWalk -= deltaTime;
+	if(timeToWalk <= 0)
+	{
+		 randNum= rand() % 1000;
+		 timeToWalk = 1.5f;
+	}
+	if(randNum < 950)
+	{
 		isChangingDirection = true;
+		idling = false;
+		std::cout << "Changing Direction" << std::endl;
+	}
+	if(randNum > 950)
+	{
+		isChangingDirection = false;
+		idling = true;
+		totalCols = idleCols;
+		std::cout << "Idling" << std::endl;
+	}
 	currentSpeed *= changeDirection();
-	Human.move(sf::Vector2f(Human.getPosition().x + currentSpeed, Human.getPosition().y));
+	if(!idling)
+		Human.setPosition(sf::Vector2f(Human.getPosition().x + currentSpeed * deltaTime, Human.getPosition().y));
 }
 
 //run once npc is dead
 void BaseNPC::despawnTimer(float deltaTimer)
 {
-	despawner = despawner + sf::seconds(deltaTimer);
-	if(despawner > sf::seconds(3.0f))
+	despawner = despawner + deltaTimer;
+	if(despawner > 3.0f)
 		delete this;
 }
 
 //depending on gravity, the npc will either be constantly rising or falling
-void BaseNPC::verticalMove()
+void BaseNPC::verticalMove(float deltaTime)
 {
 	if(!groundCollision())
-		Human.move(sf::Vector2f(Human.getPosition().x, Human.getPosition().y + fallingSpeed));
+		Human.setPosition(sf::Vector2f(Human.getPosition().x, Human.getPosition().y + (fallingSpeed * gravity * deltaTime)));
 }
 
 bool BaseNPC::groundCollision()
@@ -109,10 +132,10 @@ void BaseNPC::setOnFire(float deltaTime)
 {
 	//play animation with npc on fire
 	//decrease their HP over time
-	DOT = DOT + sf::seconds(deltaTime);
-	if(DOT > sf::seconds(1.0f))
+	DOT = DOT + deltaTime;
+	if(DOT > 1.0f)
 	{
-		DOT = sf::seconds(0.0f);
+		DOT = 0.0f;
 		damageHP(2);
 	}
 }
@@ -122,10 +145,10 @@ void BaseNPC::setIsCold(float deltaTime)
 	//play animation of npc freezing
 	currentSpeed = changeSpeed()/2;
 	//decrease their HP over time
-	DOT = DOT + sf::seconds(deltaTime);
-	if(DOT > sf::seconds(1.0f))
+	DOT = DOT + deltaTime;
+	if(DOT > 1.0f)
 	{
-		DOT = sf::seconds(0.0f);
+		DOT = 0.0f;
 		damageHP(2);
 	}
 }
@@ -135,10 +158,10 @@ void BaseNPC::setIsHot(float deltaTime)
 	//play animation of npc sweaty
 	currentSpeed = changeSpeed()/2;
 	//decrease their HP over time
-	DOT = DOT + sf::seconds(deltaTime);
-	if(DOT > sf::seconds(1.0f))
+	DOT = DOT + deltaTime;
+	if(DOT > 1.0f)
 	{
-		DOT = sf::seconds(0.0f);
+		DOT = 0.0f;
 		damageHP(2);
 	}
 }
@@ -258,7 +281,7 @@ float BaseNPC::changeFallSpeed()
 }
 
 //only call when npc is being spawned. should only be done once per spawn.
-void BaseNPC::setPosition()
+void BaseNPC::setPosition(sf::Vector2f v)
 {
-	Human.setPosition(sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT * 0.5));
+	Human.setPosition(v);
 }

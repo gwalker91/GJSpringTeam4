@@ -5,7 +5,8 @@ World::World()
 	:background((*txtMap->at("regDayBackground"))),
 	gameWeather(new Weather()),
 	gameWrath(new Wrath()),
-	gameSpawner(new Spawner(sf::Sprite(*txtMap->at("Hut")), sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))),
+	//gameSpawner(new Spawner(sf::Sprite(*txtMap->at("Hut")), sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))),
+	tester(new NPC(sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))),
 	lastTemp(0),
 	timeOfDay(0),
 	saved(false)
@@ -17,8 +18,10 @@ World::World()
 World::~World()
 {
 	delete gameWeather;
-	delete gameSpawner;
+	//delete gameSpawner;
 	delete gameWrath;
+
+	delete tester;
 }
 
 void World::backGroundSwap()
@@ -109,8 +112,8 @@ void World::update(float deltaTime)
 {
 	gameWeather->update(deltaTime);
 	gameWrath->getWeather(gameWeather->getWeather());
-	std::cout << gameWeather->getWeather() << std::endl;
-	gameSpawner->update(deltaTime);
+	//std::cout << gameWeather->getWeather() << std::endl;
+	//gameSpawner->update(deltaTime);
 
 	gameWrath->update(deltaTime);
 	if(gameWrath->checkWrathing())
@@ -118,7 +121,7 @@ void World::update(float deltaTime)
 		std::cout << gameWrath->getWrathDmg() << std::endl;
 		gameSpawner->spreadWrathDmg(gameWrath->getWrathDmg());
 	}
-
+	tester->update(deltaTime);
 	backGroundSwap();
 
 }
@@ -127,7 +130,8 @@ void World::draw(sf::RenderWindow* w)
 {
 	w->draw(background);
 	gameWeather->draw(w);
-	gameSpawner->draw(w);
+	//gameSpawner->draw(w);
 	gameWrath->draw(w);
+	tester->draw(w);
 }
 

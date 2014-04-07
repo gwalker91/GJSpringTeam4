@@ -19,7 +19,7 @@ Spawner::Spawner(sf::Sprite hut, sf::Vector2f initPosition)
 	{
 		//need to modify this function with boolean values
 		//peopleMaker.listOfPeople.push_back(new BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), sf::Vector2f(400.0f, 400.0f), hot, cold));
-		listOfPeople.push_back(BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), sf::Vector2f(400.0f, 400.0f), hot, cold));
+		listOfPeople.push_back(BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), position, hot, cold));
 		num_of_alive_people++;
 	}
 }
@@ -155,7 +155,7 @@ void Spawner::spawnPeople(float deltaTime)
 			{
 				//spawn npc, then break out of loop
 				listOfPeople.at(i).isActive = true;
-				listOfPeople.at(i).setPosition();
+				listOfPeople.at(i).setPosition(position);
 				num_of_active_people++;
 				std::cout << "Spawned" << std::endl;
 				std::cout << num_of_active_people << std::endl;
