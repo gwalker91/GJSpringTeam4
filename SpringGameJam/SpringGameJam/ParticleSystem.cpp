@@ -84,7 +84,7 @@ void ParticleSystem::update(float deltaTime)
 		}
 	}
 
-	std::cout << particleList.size() << std::endl;
+	//std::cout << particleList.size() << std::endl;
 
 }
 
