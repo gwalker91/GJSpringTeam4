@@ -7,7 +7,7 @@ Wrath::Wrath()
 	wrathPower(0),
 	usingWrath(false),
 	chargeWrath(false),
-	spriteTimer(0.5f),
+	spriteTimer(0.1f),
 	row(0), col(0),
 	wrathWidth(1.0f)
 {
@@ -21,15 +21,14 @@ Wrath::~Wrath()
 
 void Wrath::updateSprite()
 {
+	
 	col++;
-
-	if (col == 3)
+	if (col >= 5)
 	{
 		usingWrath = false;
 		col = 0;
 		wrathPower = 0;
 	}
-	wrathImage.setTextureRect(sf::IntRect(col * SCREEN_WIDTH, row * SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT));
 }
 
 bool Wrath::checkWrathing()
@@ -91,10 +90,11 @@ void Wrath::update(float deltaTime)
 	if(usingWrath)
 	{
 		spriteTimer -= deltaTime;
+		wrathImage.setTextureRect(sf::IntRect(col * SCREEN_WIDTH, row * SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT));
 		if(spriteTimer <= 0)
 		{
 			updateSprite();
-			spriteTimer = 0.5f;
+			spriteTimer = 0.1f;
 		}
 	}
 	if(chargeWrath)

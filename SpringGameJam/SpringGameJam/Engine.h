@@ -17,8 +17,6 @@ private:
 	sf::RenderWindow* window;
 	sf::Clock gameClock;
 
-	bool saved;
-
 	void loadAssets();
 	void loadTexture(std::string filePath, std::string KeyName);
 

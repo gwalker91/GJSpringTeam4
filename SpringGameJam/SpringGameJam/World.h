@@ -18,6 +18,8 @@ private:
 
 	int lastTemp;
 	int timeOfDay;
+	
+	bool saved;
 
 	sf::Sprite background;
 

@@ -3,8 +3,7 @@
 #include <iostream>
 
 Engine::Engine()
-	:gameClock(),
-	saved(false)
+	:gameClock()
 {
 	window = new sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 
@@ -20,8 +19,8 @@ Engine::~Engine()
 
 void Engine::loadAssets()
 {
-	//Backgroundsll
-	//regllll
+	//Backgrounds
+	//reg
 	loadTexture("Images/BackgroundPleasantNight.png", "regNightBackground");
 	loadTexture("Images/BackgroundPleasantEve.png", "regEveBackground");
 	loadTexture("Images/BackgroundPleasantDay.png", "regDayBackground");
@@ -33,7 +32,6 @@ void Engine::loadAssets()
 	loadTexture("Images/BackgroundHotNight.png", "hotNightBackground");
 	loadTexture("Images/BackgroundHotEve.png", "hotEveBackground");
 	loadTexture("Images/BackgroundHotDay.png", "hotDayBackground");
-
 
 	//Particle textures
 	loadTexture("Images/RainDrop.png", "RainDrop");
@@ -57,7 +55,6 @@ void Engine::loadAssets()
 	loadTexture("Images/npcColdSpriteSheet.png", "FreezingHuman");
 	loadTexture("Images/hut.png", "Hut");
 
-	std::cout << "Loaded the textures" << std::endl;
 }
 
 void Engine::loadTexture(std::string filePath, std::string KeyName)
@@ -69,7 +66,6 @@ void Engine::loadTexture(std::string filePath, std::string KeyName)
 		window->close();
 	}
 	txtMap->insert(MapPair(KeyName, tempText));
-
 }
 
 sf::RenderWindow* Engine::getWindow()
@@ -79,36 +75,22 @@ sf::RenderWindow* Engine::getWindow()
 
 void Engine::handleInput()
 {
-	if(!saved)
+	if(sf::Keyboard::isKeyPressed(upGravityButton))
 	{
-		if(sf::Keyboard::isKeyPressed(saveButton))
-		{
-			saved = true;
-		}
-		if(sf::Keyboard::isKeyPressed(upGravityButton))
-		{
-			gravity += 0.1f;
-		}
-		if(sf::Keyboard::isKeyPressed(downGravityButton))
-		{
-			gravity -= 0.1f;
-		}
-		gameWorld->handleInput();
+		gravity += 0.1f;
 	}
-	else
+	if(sf::Keyboard::isKeyPressed(downGravityButton))
 	{
-		if(sf::Keyboard::isKeyPressed(saveButton))
-		{
-			saved = false;
-		}
+		gravity -= 0.1f;
 	}
+	gameWorld->handleInput();
+
 }
 
 void Engine::update()
 {
 	sf::Time deltaTime = gameClock.getElapsedTime();
 	gameWorld->update(deltaTime.asSeconds());
-	//std::cout << deltaTime.asSeconds() << std::endl;
 	gameClock.restart();
 }
 
