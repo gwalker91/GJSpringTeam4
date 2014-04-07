@@ -7,6 +7,8 @@
 #include "Particle.h"
 #include "Globals.h"
 
+#include <iostream>
+
 class ParticleSystem
 {
 private:

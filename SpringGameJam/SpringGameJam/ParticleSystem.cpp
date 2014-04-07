@@ -84,6 +84,8 @@ void ParticleSystem::update(float deltaTime)
 		}
 	}
 
+	std::cout << particleList.size() << std::endl;
+
 }
 
 void ParticleSystem::draw(sf::RenderWindow* w)
