@@ -13,7 +13,7 @@ class World //: public Entity
 {
 private:
 	Weather* gameWeather;
-	//Spawner* gameSpawner;
+	Spawner* gameSpawner;
 	Wrath* gameWrath;
 	sf::Sprite background;
 public:

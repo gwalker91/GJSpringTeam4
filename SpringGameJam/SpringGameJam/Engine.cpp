@@ -27,6 +27,12 @@ void Engine::loadAssets()
 	loadTexture("Images/Snow.png", "Snow");
 	loadTexture("Images/Wrath.png", "Wrath");
 	loadTexture("Images/WrathBar.png", "WrathBar");
+	//KTZ was here...
+	//added the .png files as textures for the npcs
+	loadTexture("Images/npcNormalSpriteSheetv1.png", "NormalHuman");
+	loadTexture("Images/npcHotSpriteSheetv1.png", "BurningHuman");
+	loadTexture("Images/npcColdSpriteSheet.png", "FreezingHuman");
+	loadTexture("Images/hut.png", "Hut");
 }
 
 void Engine::loadTexture(std::string filePath, std::string KeyName)

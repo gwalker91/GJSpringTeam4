@@ -25,6 +25,8 @@ public:
 	void changeState(Weather weather);
 	void spawnPeople(float deltaTime);
 	void createPeople();
+	bool hasWrathApplied();
+	void spreadWrathDmg(float wrathDmg);
 	//std::vector<BaseNPC*> listOfAlivePeople;
 private:
 	BaseNPC peopleMaker;
@@ -37,6 +39,7 @@ private:
 	bool cold;
 	bool hot;
 	bool wet;
+	bool wrathApplied;
 	sf::Time spawnTimer;
 };
 
