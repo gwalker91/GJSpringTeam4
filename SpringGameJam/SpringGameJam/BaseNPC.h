@@ -23,6 +23,7 @@ public:
 	~BaseNPC();
 	void draw(sf::RenderWindow* w);
 	void update(float deltaTime);
+	void updateSprite();
 	void despawnTimer(float deltaTime);
 
 	//NPC Behavior
@@ -75,6 +76,9 @@ private:
 	sf::Vector2f position;
 	sf::Time DOT; //moar dotz NOAW! (damage over time)
 	sf::Time despawner;
+	sf::Time spriteSwap;
+	int row;
+	int col;
 };
 
 #endif //BASENPC_H

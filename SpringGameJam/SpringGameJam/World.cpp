@@ -4,15 +4,17 @@
 World::World()
 	:background((*txtMap->at("DayBackground"))),
 	gameWeather(new Weather()),
-	gameWrath(new Wrath())
+	gameWrath(new Wrath()),
+	gameSpawner(new Spawner(sf::Sprite(*txtMap->at("Hut")), sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))) 
 {
+	//KTZ was here... uncommented and fixed gameSpawner line above (NOTE: an error message appears after you exit the game)
 	//gameSpawner = new Spawner();
 }
 
 World::~World()
 {
 	delete gameWeather;
-	//delete gameSpawner;
+	delete gameSpawner;
 	delete gameWrath;
 }
 
@@ -40,12 +42,13 @@ void World::handleInput()
 void World::update(float deltaTime)
 {
 	gameWeather->update(deltaTime);
-	//gameSpawner->update(deltaTime);
+	gameSpawner->update(deltaTime);
 
 	gameWrath->update(deltaTime);
 	if(gameWrath->checkWrathing())
 	{
 		std::cout << gameWrath->getWrathDmg() << std::endl;
+		gameSpawner->spreadWrathDmg(gameWrath->getWrathDmg());
 	}
 }
 
@@ -53,7 +56,7 @@ void World::draw(sf::RenderWindow* w)
 {
 	w->draw(background);
 	gameWeather->draw(w);
-	//gameSpawner->draw(w);
+	gameSpawner->draw(w);
 	gameWrath->draw(w);
 }
 

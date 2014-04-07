@@ -12,10 +12,10 @@ BaseNPC::BaseNPC()
 {}
 
 BaseNPC::BaseNPC(sf::Sprite human, sf::Vector2f initPosition, bool hot, bool cold) 
-	: HP(5 + (rand() % 16)), isDead(false), onFire(false), maxSpeed(1 + float(rand() % 5)), 
+	: HP(5 + (rand() % MAX_HEALTH)), isDead(false), onFire(false), maxSpeed(1 + float(rand() % 2)), 
 	  currentSpeed(maxSpeed), fallingSpeed(gravity), isChangingDirection(false), 
 	  DOT(sf::seconds(0.0f)), despawner(sf::seconds(0.0f)), isActive(false), isHot(hot), 
-	  isCold(cold), position(initPosition), Human(human)
+	  isCold(cold), position(initPosition), Human(human), col(0), row(0), spriteSwap(sf::seconds(1.5f))
 {
 	//when inactive, we should probably put it off screen, then let the spawner "spawn" the npc.
 	Human.setPosition(position);
@@ -40,18 +40,39 @@ void BaseNPC::update(float deltaTime)
 		setIsDead();
 	if(!isDead)
 	{
+		//TODO: getting the npc to appear on screen, walking about
 		//need to be able to access weather as is
 		//changeState(weather);
 		changeSpeed();
 		changeFallSpeed();
 		walk();
 		verticalMove();
+		if(spriteSwap <= sf::seconds(0.0f))
+		{
+			spriteSwap = sf::seconds(1.5f);
+			updateSprite();
+		}
+		//50x100
 	}
 	else
 	{
 		despawnTimer(deltaTime);
 	}
 
+}
+
+void BaseNPC::updateSprite()
+{
+	col++;
+
+	if(col == 3)
+	{
+		col = 0;
+		row++;
+		if(row = 4)
+			row = 0;
+	}
+	Human.setTextureRect(sf::IntRect(col * 50, row * 100, 50, 100));
 }
 
 void BaseNPC::walk()
@@ -63,7 +84,6 @@ void BaseNPC::walk()
 		isChangingDirection = true;
 	currentSpeed *= changeDirection();
 	Human.move(sf::Vector2f(Human.getPosition().x + currentSpeed, Human.getPosition().y));
-	
 }
 
 //run once npc is dead
@@ -245,5 +265,5 @@ float BaseNPC::changeFallSpeed()
 //only call when npc is being spawned. should only be done once per spawn.
 void BaseNPC::setPosition()
 {
-	Human.setPosition(sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT * 0.75));
+	Human.setPosition(sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT * 0.5));
 }

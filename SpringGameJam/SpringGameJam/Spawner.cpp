@@ -11,14 +11,14 @@
 
 Spawner::Spawner(sf::Sprite hut, sf::Vector2f initPosition) 
 	: spawnTimer(sf::seconds(0.0f)), peopleCounter(0),
-	  hutImage(hut), position(initPosition)
+	  hutImage(hut), position(initPosition), wrathApplied(false)
 {
 	hutImage.setPosition(position);
 	//allocate x amount of people from list. do not allocate more than i people.
 	for(int i = 0; i < NUM_OF_PEOPLE; i++)
 	{
 		//need to modify this function with boolean values
-		peopleMaker.listOfPeople.push_back(new BaseNPC(Human, position, hot, cold));
+		peopleMaker.listOfPeople.push_back(new BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), sf::Vector2f(400.0f, 400.0f), hot, cold));
 		num_of_alive_people++;
 	}
 }
@@ -144,4 +144,23 @@ void Spawner::createPeople()
 	//here, we'll make new people ready to be spawned.
 	peopleMaker.listOfPeople.push_back(new BaseNPC(Human, position, hot, cold));
 	num_of_alive_people++;
+}
+
+bool Spawner::hasWrathApplied()
+{
+	return wrathApplied;
+}
+
+void Spawner::spreadWrathDmg(float wrathDmg)
+{
+	//std::cout << wrathApplied << std::endl;
+	if(!hasWrathApplied())
+	{
+		int finalDmg = wrathDmg;
+		wrathApplied = true;
+		for(int i = 0; i < peopleMaker.listOfPeople.size(); i++)
+		{
+			peopleMaker.listOfPeople[i]->damageHP(finalDmg);
+		}
+	}
 }
