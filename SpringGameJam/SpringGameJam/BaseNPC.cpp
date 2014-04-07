@@ -12,7 +12,7 @@ BaseNPC::BaseNPC()
 {}
 
 BaseNPC::BaseNPC(sf::Sprite human, sf::Vector2f initPosition, bool hot, bool cold) 
-	: HP(MIN_HEALTH + (rand() % MAX_HEALTH)), isDead(false), onFire(false), maxSpeed(1*0 + float(rand() % 2)*0), 
+	: HP(MIN_HEALTH + (std::rand() % MAX_HEALTH)), isDead(false), onFire(false), maxSpeed(1*0 + float(std::rand() % 2)*0), 
 	  currentSpeed(maxSpeed), fallingSpeed(gravity), isChangingDirection(false), 
 	  DOT(sf::seconds(0.0f)), despawner(sf::seconds(0.0f)), isActive(false), isHot(hot), 
 	  isCold(cold), position(initPosition), Human(human), col(0), row(0), spriteSwap(sf::seconds(1.5f))
@@ -77,13 +77,13 @@ void BaseNPC::walk()
 	//play walking animation
 	//move around using current speed
 	//at random times, the npc's direction will change
-	if(rand() % 1000 > 900)
+	if(std::rand() % 1000 > 900)
 		isChangingDirection = true;
 	currentSpeed *= changeDirection();
 	Human.move(sf::Vector2f(Human.getPosition().x + currentSpeed, Human.getPosition().y));
 }
 
-//run once npc is dead
+//run once npc is dead.
 void BaseNPC::despawnTimer(float deltaTimer)
 {
 	despawner = despawner + sf::seconds(deltaTimer);
@@ -227,7 +227,6 @@ void BaseNPC::setPanicking()
 {
 	panicking = true;
 	currentSpeed = changeSpeed() * 2;
-	//I would like to try to get the npc to walk the opposite direction from where the player is (maybe not needed)
 	changeDirection();
 }
 

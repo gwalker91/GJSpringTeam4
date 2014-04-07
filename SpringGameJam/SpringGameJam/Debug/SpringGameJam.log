@@ -1,4 +1,4 @@
-﻿Build started 4/7/2014 1:45:22 PM.
+﻿Build started 4/7/2014 3:16:20 PM.
      1>Project "C:\Users\Todandict\Documents\GitHub\GJSpringTeam4\SpringGameJam\SpringGameJam\SpringGameJam.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SpringGameJam.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -17,4 +17,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.07
+Time Elapsed 00:00:00.14

@@ -28,7 +28,7 @@ public:
 	bool hasWrathApplied();
 	void spreadWrathDmg(float wrathDmg);
 private:
-	std::vector<BaseNPC> listOfPeople;
+	std::vector<BaseNPC*> listOfPeople;
 	BaseNPC peopleMaker;
 	int village, town, city;
 	int currentState;
