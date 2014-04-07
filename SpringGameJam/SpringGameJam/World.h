@@ -8,6 +8,7 @@
 #include "Spawner.h"
 #include "Globals.h"
 #include "Wrath.h"
+#include "NPC.h"
 
 class World //: public Entity
 {
@@ -16,8 +17,12 @@ private:
 	Spawner* gameSpawner;
 	Wrath* gameWrath;
 
+	NPC* tester;
+
 	int lastTemp;
 	int timeOfDay;
+	
+	bool saved;
 
 	sf::Sprite background;
 

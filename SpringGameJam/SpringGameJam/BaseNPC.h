@@ -29,8 +29,8 @@ public:
 	void despawnTimer(float deltaTime);
 
 	//NPC Behavior
-	virtual void walk();
-	virtual void verticalMove();
+	virtual void walk(float deltaTime);
+	virtual void verticalMove(float deltaTime);
 
 	//will play the animation on the npc
 	virtual void setOnFire(float deltaTime);
@@ -47,7 +47,7 @@ public:
 	virtual void damageHP(int damage);
 	virtual bool groundCollision();
 
-	virtual void setPosition();
+	virtual void setPosition(sf::Vector2f v);
 
 	//NPC states variables - also for playing their respective animations
 	//game elements should be able to access an npc's current state and change it, like weather
@@ -71,17 +71,27 @@ private:
 	float maxSpeed;
 	float currentSpeed;
 	bool isChangingDirection;
+	bool idling;
 	int changeDirection();
 	float changeSpeed();
 	float changeFallSpeed();
 	float fallingSpeed;
 	sf::Sprite Human;
 	sf::Vector2f position;
-	sf::Time DOT; //moar dotz NOAW! (damage over time)
-	sf::Time despawner;
-	sf::Time spriteSwap;
+	float DOT; //moar dotz NOAW! (damage over time)
+	float despawner;
+	float spriteSwap;
+
 	int row;
 	int col;
+	int totalCols;
+
+	int idleCols;
+	int walkingCols;
+	int dyingCols;
+
+	int timeToWalk;
+	int randNum;
 };
 
 #endif //BASENPC_H

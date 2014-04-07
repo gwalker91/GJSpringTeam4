@@ -117,6 +117,8 @@ void Weather::update(float deltaTime)
 		rainSystem.changeTexture("Snow");
 		rainSystem.changeDensity(1);
 		darkness.setColor(sf::Color(255,255,255,50));
+		showClouds = true;
+		clouds = sf::Sprite(*txtMap->at("Clouds"));
 
 	}
 	//mild and pleasent
