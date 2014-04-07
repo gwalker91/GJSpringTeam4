@@ -15,7 +15,17 @@ private:
 	Weather* gameWeather;
 	Spawner* gameSpawner;
 	Wrath* gameWrath;
+
+	int lastTemp;
+
 	sf::Sprite background;
+
+	sf::Texture dayBackground;
+	sf::Texture eveningBackground;
+	sf::Texture nightBackground;
+
+	void backGroundSwap();
+
 public:
 	World();
 	~World();

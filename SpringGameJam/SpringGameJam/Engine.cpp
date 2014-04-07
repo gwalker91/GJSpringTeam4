@@ -20,19 +20,40 @@ Engine::~Engine()
 
 void Engine::loadAssets()
 {
-	loadTexture("Images/NightBackground.png", "NightBackground");
-	loadTexture("Images/EveningBackGround.png", "EveningBackGround");
-	loadTexture("Images/DayBackground.png", "DayBackground");
+	//Backgrounds
+	//reg
+	loadTexture("Images/NightBackground.png", "regNightBackground");
+	loadTexture("Images/EveningBackGround.png", "regEveningBackground");
+	loadTexture("Images/DayBackground.png", "regDayBackground");
+	//cold
+	loadTexture("Images/NightBackground.png", "coldNightBackground");
+	loadTexture("Images/EveningBackGround.png", "coldEveningBackground");
+	loadTexture("Images/DayBackground.png", "coldDayBackground");
+	//hot
+	loadTexture("Images/NightBackground.png", "hotNightBackground");
+	loadTexture("Images/EveningBackGround.png", "hotEveningBackground");
+	loadTexture("Images/DayBackground.png", "hotDayBackground");
+
+
+	//Particle textures
 	loadTexture("Images/RainDrop.png", "RainDrop");
 	loadTexture("Images/Snow.png", "Snow");
+
+	//Wrath Textures
 	loadTexture("Images/Wrath.png", "Wrath");
 	loadTexture("Images/WrathBar.png", "WrathBar");
+
+	//Darkness filter texture
+	loadTexture("Images/darkness.png", "Darkness");
+
 	//KTZ was here...
 	//added the .png files as textures for the npcs
 	loadTexture("Images/npcNormalSpriteSheetv1.png", "NormalHuman");
 	loadTexture("Images/npcHotSpriteSheetv1.png", "BurningHuman");
 	loadTexture("Images/npcColdSpriteSheet.png", "FreezingHuman");
 	loadTexture("Images/hut.png", "Hut");
+
+	std::cout << "Loaded the textures" << std::endl;
 }
 
 void Engine::loadTexture(std::string filePath, std::string KeyName)

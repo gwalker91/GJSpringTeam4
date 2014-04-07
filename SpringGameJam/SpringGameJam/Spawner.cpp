@@ -26,8 +26,13 @@ Spawner::Spawner(sf::Sprite hut, sf::Vector2f initPosition)
 Spawner::~Spawner()
 {
 	//deallocate x amount of people from list. do not deallocate more than i people.
-	for(int i = 0; i < NUM_OF_PEOPLE; i++)
-		delete peopleMaker.listOfPeople[i];
+	/*
+	if(peopleMaker.listOfPeople.size() > 0)
+	{
+		for(int i = 0; i < NUM_OF_PEOPLE; i++)
+			delete peopleMaker.listOfPeople[i];
+	}
+	*/
 }
 
 void Spawner::draw(sf::RenderWindow* w)
