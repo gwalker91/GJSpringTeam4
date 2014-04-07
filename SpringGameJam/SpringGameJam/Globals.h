@@ -11,6 +11,7 @@ extern int SCREEN_HEIGHT;
 //added a new extern int type to limit how many people can exist at once
 const extern int NUM_OF_PEOPLE;
 const extern int MAX_HEALTH;
+const extern int MIN_HEALTH;
 
 //KTZ was here...
 //added another int to track how many people are still alive

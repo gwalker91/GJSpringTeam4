@@ -126,8 +126,8 @@ void World::update(float deltaTime)
 void World::draw(sf::RenderWindow* w)
 {
 	w->draw(background);
-	gameSpawner->draw(w);
 	gameWeather->draw(w);
+	gameSpawner->draw(w);
 	gameWrath->draw(w);
 }
 

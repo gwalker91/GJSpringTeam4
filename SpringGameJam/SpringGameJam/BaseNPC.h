@@ -5,6 +5,8 @@
 //included a private method to let npc's speed change.
 //4-6-14, 3:00pm: 95% finished with everything here, just need some help going over
 //code, put in finishing touches and working on update and (maybe) draw functions.
+//4-7-14, 9:46am: commenting a few functions and variables as we probably don't have
+//time to finish these features.
 #ifndef BASENPC_H
 #define BASENPC_H
 
@@ -23,7 +25,7 @@ public:
 	~BaseNPC();
 	void draw(sf::RenderWindow* w);
 	void update(float deltaTime);
-	void updateSprite();
+	void updateWalkSprite();
 	void despawnTimer(float deltaTime);
 
 	//NPC Behavior
@@ -34,7 +36,7 @@ public:
 	virtual void setOnFire(float deltaTime);
 	virtual void setIsCold(float deltaTime);
 	virtual void setIsHot(float deltaTime);
-	virtual void setIsWet(float deltaTime);
+	//virtual void setIsWet(float deltaTime);
 
 	//a universal state changer based on current state of game weather
 	virtual void changeState(Weather weather);
@@ -52,17 +54,18 @@ public:
 	bool onFire;
 	bool isCold;	//based on current state of weather
 	bool isHot;		//based on current state of weather
-	bool isWet;		//based on current state of weather
+	//bool isWet;		//based on current state of weather
 	bool isDead;
 	bool panicking;
 	bool isActive;
 
 	//still need to discuss what to do with the two meters mentioned.
-	int terror;
-	int respect;
+	//I'm disabling terror and respect at this point
+	//int terror;
+	//int respect;
 
 	//for spawner to have access to
-	std::vector<BaseNPC*> listOfPeople;
+	//std::vector<BaseNPC*> listOfPeople;
 private:
 	int HP; //health points
 	float maxSpeed;
