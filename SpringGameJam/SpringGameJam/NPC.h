@@ -10,10 +10,9 @@
 class NPC
 {
 private:
-	float health;
+
 	int walkSpeed;
 	int fallSpeed;
-	int direction;
 	int weatherState;
 
 	int row;
@@ -27,22 +26,29 @@ private:
 	float DOT;
 	float DOTDmg;
 	float spriteTime;
+	float direction;
 
 	bool idling;
 	bool isHot;
 	bool isCold;
 	bool isAlive;
 	bool isActive;
+	bool falling;
+	bool wrathed;
+	bool goingToDie;
 
 	sf::Sprite Human;
 	sf::Vector2f position;
 
 	void updateWalkingSprite(float deltaTime);
+	void updateDeath(float deltaTime);
 	void changeDirection();
 	void kill();
+	void killWithWrath();
 	void checkGround(float deltaTime);
 	void checkState();
 public: 
+		float health;
 	NPC();
 	NPC(sf::Vector2f pos);
 	~NPC();
@@ -50,7 +56,8 @@ public:
 	void draw(sf::RenderWindow* w);
 
 	bool checkAlive();
-	void doDamage(int damage);
+	void doDamage(float damage, bool isWrath);
+
 	void checkWeather(int weather);
 };
 
