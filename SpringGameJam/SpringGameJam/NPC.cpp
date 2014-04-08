@@ -4,22 +4,20 @@
 NPC::NPC()
 {}
 
-//rand() % 200 + 100
-
 NPC::NPC(sf::Vector2f pos)
-	:health(MIN_HEALTH + (rand() % MAX_HEALTH)), walkSpeed(200),
-	fallSpeed(200), direction(0), weatherState(8), DOT(0.5f), DOTDmg(0.1f),
-	spriteTime(0.5f),
-	idling(true), isHot(false), isCold(false), isAlive(true),
-	isActive(true), 
+	:health(MIN_HEALTH + (rand() % MAX_HEALTH)), walkSpeed(3000),
+	fallSpeed(1250), direction(10.0f), weatherState(8), DOT(0.1f), DOTDmg(1.0f),
+	spriteTime(0.2f), wrathed(false),
+	idling(false), isHot(false), isCold(false), isAlive(true),
+	isActive(true), falling(false),
 	Human(sf::Sprite(*txtMap->at("NormalHuman"))),
 	position(pos), col(0), row(0),
 	idleCols(4), walkingCols(5), dyingCols(4)
 {
-	std::cout << position.x << std::endl;
 	Human.setPosition(position);
 	Human.setTextureRect(sf::IntRect(0, 0, 50, 100));
 	totalCols = idleCols;
+	goingToDie = false;
 }
 
 NPC::~NPC()
@@ -29,40 +27,97 @@ NPC::~NPC()
 
 void NPC::updateWalkingSprite(float deltaTime)
 {
-	Human.setTextureRect(sf::IntRect(col * 50, row * 100, 50, 100));
-	col++;
+	if(!falling)
+	{
+		Human.setTextureRect(sf::IntRect(col * 50, row * 100, 50, 100));
+		col++;
+		if(col == totalCols)
+		{
+			if(row != 4)
+				col = 0;
+		}
+		if(deltaTime < 1 && !idling)
+			position.x += walkSpeed * deltaTime;
+		Human.setPosition(position);
+	}
+}
+
+void NPC::updateDeath(float deltaTime)
+{
+	if(col < totalCols)
+	{
+		Human.setTextureRect(sf::IntRect(col * 50, row * 100, 50, 100));
+		col++;
+	}
 	if(col == totalCols)
 	{
-		col = 0;
+		if(row != 4)
+			col = 0;
+		if(health <= 0)
+			isAlive = false;
+		wrathed = false;
 	}
-	//Human.getPosition().x;
-	std::cout << "his new position: " << Human.getPosition().x << std::endl;
-	float movement = 20000 * deltaTime;
-	//std::cout << movement << std::endl;
-	if(Human.getPosition().x > 1000)
-		Human.setPosition(position);
-	Human.setPosition(Human.getPosition().x + (movement), (Human.getPosition().y));
-	std::cout << "his new position: " << Human.getPosition().x << std::endl;
 }
 
 void NPC::changeDirection()
 {
+	walkSpeed *= -1;
+	direction = rand() % 10;
+	col = 0;
+	if(rand() % 100 < 60)
+	{
+		idling = false;
+	}
+	else
+		idling = true;
+	if(!idling)
+	{
+		if(walkSpeed < 0)
+			row = 2;
+		else
+			row = 3;
+	}
+	else
+	{
+		if(walkSpeed < 0)
+			row = 0;
+		else
+			row = 1;
+	}
 
 }
 
 void NPC::kill()
 {
+	goingToDie = true;
+	row = 4;
+	col = 0;
+	totalCols = dyingCols;
+}
+
+void NPC::killWithWrath()
+{
+	row = 4;
+	col = 0;
+	totalCols = dyingCols;
+	wrathed = true;
 
 }
 
 void NPC::checkGround(float deltaTime)
 {
-	/*
-	if(position.y <= SCREEN_HEIGHT * 0.75f)
+	if(position.y <= SCREEN_HEIGHT * 0.75f || gravity < 0)
 	{
-		Human.setPosition(position.x, position.y + (fallSpeed * gravity * deltaTime));
+		if(deltaTime < 1)
+		{
+			position.y += fallSpeed * gravity * deltaTime;
+			Human.setPosition(position);
+		}
+		falling = true;
 	}
-	*/
+	else
+		falling = false;
+
 }
 
 void NPC::checkState()
@@ -91,24 +146,47 @@ void NPC::checkState()
 		Human = sf::Sprite(*txtMap->at("NormalHuman"));
 		break;
 	}
+	Human.setTextureRect(sf::IntRect(0, 0, 50, 100));
+	Human.setPosition(position.x, position.y);
 }
 
 void NPC::update(float deltaTime)
 {
-	DOT -= deltaTime;
 	spriteTime -= deltaTime;
-	if(DOT <= 0 && (isHot || isCold))
+	if(!goingToDie && !wrathed)
 	{
-		doDamage(DOTDmg);
-		DOT = 0.5f;
+		direction -= deltaTime;
+		if((isHot || isCold))
+			DOT -= deltaTime;
+		if(direction <= 0)
+		{
+			changeDirection();
+		}
+		if(DOT <= 0)
+		{
+			doDamage(DOTDmg, false);
+			DOT = 0.5f;
+		}
+		if(spriteTime <= 0)
+		{
+			updateWalkingSprite(deltaTime);
+			checkGround(deltaTime);
+			spriteTime = 0.2f;
+		}
 	}
-	if(spriteTime <= 0)
+	else
 	{
-		updateWalkingSprite(deltaTime);
-		spriteTime = 0.5f;
+		if(spriteTime <= 0)
+		{
+			updateDeath(deltaTime);
+			spriteTime = 0.2f;
+		}
 	}
 
-	checkGround(deltaTime);
+	if(position.y <= 0)
+	{
+		isAlive = false;
+	}
 }
 
 void NPC::draw(sf::RenderWindow* w)
@@ -121,11 +199,18 @@ bool NPC::checkAlive()
 	return isAlive;
 }
 
-void NPC::doDamage(int damage)
+void NPC::doDamage(float damage, bool isWrath)
 {
-	health -= damage;
-	if(health <= 0)
-		isAlive = false;
+	if(!isWrath)
+		health -= damage;
+	if(isWrath)
+	{
+		if(!wrathed)
+			health -= damage;
+		killWithWrath();
+	}
+	else if(health <= 0 && !isWrath)
+		kill();
 }
 
 void NPC::checkWeather(int weather)

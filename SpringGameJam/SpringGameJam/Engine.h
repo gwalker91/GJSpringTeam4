@@ -11,12 +11,18 @@
 #include "Globals.h"
 #include "World.h"
 
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+  
+
 class Engine
 {
 private:
 	World* gameWorld;
 	sf::RenderWindow* window;
 	sf::Clock gameClock;
+	
 
 	void loadAssets();
 	void loadTexture(std::string filePath, std::string KeyName);

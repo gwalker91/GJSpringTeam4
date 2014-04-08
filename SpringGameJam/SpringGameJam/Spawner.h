@@ -9,7 +9,7 @@
 #define SPAWNER_H
 
 #include "Entity.h"
-#include "BaseNPC.h"
+#include "NPC.h"
 #include "Globals.h"
 #include "Weather.h"
 //#include <vector>
@@ -22,14 +22,14 @@ public:
 	void draw(sf::RenderWindow* w);
 	void update(float deltaTime);
 
-	void changeState(Weather weather);
+	void checkState(int weather);
 	void spawnPeople(float deltaTime);
 	void createPeople();
 	bool hasWrathApplied();
 	void spreadWrathDmg(float wrathDmg);
 private:
-	std::vector<BaseNPC*> listOfPeople;
-	BaseNPC peopleMaker;
+	std::vector<NPC*> listOfPeople;
+	NPC peopleMaker;
 	int village, town, city;
 	int currentState;
 	sf::Sprite hutImage;

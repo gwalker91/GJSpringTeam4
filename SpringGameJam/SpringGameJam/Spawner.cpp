@@ -14,165 +14,60 @@ Spawner::Spawner(sf::Sprite hut, sf::Vector2f initPosition)
 	  hutImage(hut), position(initPosition), wrathApplied(false)
 {
 	hutImage.setPosition(position);
-	//allocate x amount of people from list. do not allocate more than i people.
-	for(int i = 0; i < NUM_OF_PEOPLE; i++)
-	{
-		//need to modify this function with boolean values
-		//peopleMaker.listOfPeople.push_back(new BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), sf::Vector2f(400.0f, 400.0f), hot, cold));
-		listOfPeople.push_back(new BaseNPC(sf::Sprite(*txtMap->at("NormalHuman")), position, hot, cold));
-		num_of_alive_people++;
-	}
 }
 
 Spawner::~Spawner()
 {
-	//deallocate x amount of people from list. do not deallocate more than i people.
-	/*
-	if(peopleMaker.listOfPeople.size() > 0)
-	{
-		for(int i = 0; i < NUM_OF_PEOPLE; i++)
-			delete peopleMaker.listOfPeople[i];
-	}
-	*/
+
 }
 
 void Spawner::draw(sf::RenderWindow* w)
 {
 	w->draw(hutImage);
-	//call the draw method for npcs in here
 	for(int i = 0; i < listOfPeople.size(); i++)
 	{
-		if(listOfPeople.at(i)->isActive)
-		{
-			listOfPeople.at(i)->draw(w);
-		}
+		listOfPeople.at(i)->draw(w);
 	}
 }
 
 void Spawner::update(float deltaTime)
 {
-	if(num_of_alive_people < NUM_OF_PEOPLE)
-		createPeople();
-
-	if(num_of_active_people < listOfPeople.size())
-		spawnPeople(deltaTime);
-
-	if(listOfPeople.size() > 0)
+	if(listOfPeople.size() < NUM_OF_PEOPLE)
 	{
-		for(int i = 0; i < listOfPeople.size(); i++)
+		createPeople();
+	}
+	for(int i = 0; i < listOfPeople.size(); i++)
+	{
+		if(listOfPeople.at(i)->checkAlive())
+			listOfPeople.at(i)->update(deltaTime);
+		else
 		{
-			if(!listOfPeople.at(i)->isDead)
-				listOfPeople.at(i)->update(deltaTime);
-			else
-				listOfPeople.erase(listOfPeople.begin() + i);
+			NPC* pointer = listOfPeople.at(i);
+			listOfPeople.erase(listOfPeople.begin() + i);
+			delete pointer;
 		}
 	}
 }
 
 //maybe the spawner can be covered in snow for cold temperatures, or look wet when its wet, etc.
-void Spawner::changeState(Weather weather)
+void Spawner::checkState(int weather)
 {
-	//need to be able to handle different cases of weather
-	if(weather.getTemperature() > 0 && weather.getMoisture() > 0)
+	for(int i = 0; i < listOfPeople.size(); i++)
 	{
-		cold = false;
-		hot = false;
-		wet = true;
-	}
-	//hot and dry
-	else if(weather.getTemperature() > 0 && weather.getMoisture() < 0)
-	{
-		cold = false;
-		hot = true;
-		wet = false;
-	}
-	//hot and pleasent
-	else if(weather.getTemperature() > 0 && weather.getMoisture() == 0)
-	{
-		cold = false;
-		hot = true;
-		wet = false;
-	}
-	//cold and dry
-	else if(weather.getTemperature() < 0 && weather.getMoisture() < 0)
-	{
-		cold = true;
-		hot = false;
-		wet = false;
-	}
-	//cold and wet
-	else if(weather.getTemperature() < 0 && weather.getMoisture() > 0)
-	{
-		cold = true;
-		hot = false;
-		wet = false;
-	}
-	//cold and pleasent
-	else if(weather.getTemperature() < 0 && weather.getMoisture() == 0)
-	{
-		cold = true;
-		hot = false;
-		wet = false;
-	}
-	//mild and pleasent
-	else if(weather.getTemperature() == 0 && weather.getMoisture() == 0)
-	{
-		cold = false;
-		hot = false;
-		wet = false;
-	}
-	//mild and wet
-	else if(weather.getTemperature() == 0 && weather.getMoisture() > 0)
-	{
-		cold = false;
-		hot = false;
-		wet = true;
-	}
-	//mild and dry
-	else if(weather.getTemperature() == 0 && weather.getMoisture() < 0)
-	{
-		cold = false;
-		hot = false;
-		wet = false;
+		listOfPeople.at(i)->checkWeather(weather);
 	}
 }
 
 //as long as there are less than x active people, keep running, otherwise, stop
 void Spawner::spawnPeople(float deltaTime)
 {
-	//here, we'll pop people out of the spawner and into the open world to wonder about.
-	//every x amount of seconds, we will spawn new people from the list (the list will be
-	//repopulated).
-	spawnTimer = spawnTimer + sf::seconds(deltaTime);
-	//std::cout << spawnTimer.asMilliseconds() << std::endl;
-	if(spawnTimer > sf::seconds(2.5f))
-	{
-
-		spawnTimer = sf::seconds(0.0f);
-		for(unsigned int i = 0; i < listOfPeople.size(); i++)
-		{
-			if(!listOfPeople.at(i)->isActive)
-			{
-				//spawn npc, then break out of loop
-				listOfPeople.at(i)->isActive = true;
-				listOfPeople.at(i)->setPosition(position);
-				num_of_active_people++;
-				std::cout << "Spawned" << std::endl;
-				std::cout << num_of_active_people << std::endl;
-				break;
-			}
-			//otherwise keep searching for an inactive npc
-		}
-	}
+	
 }
 
 //as long as there are less than x alive people, keep running, otherwise, stop
 void Spawner::createPeople()
 {
-	//here, we'll make new people ready to be spawned.
-	listOfPeople.push_back(new BaseNPC(Human, position, hot, cold));
-	num_of_alive_people++;
-	std::cout << "num_people: " << num_of_alive_people << std::endl;
+	listOfPeople.push_back(new NPC(sf::Vector2f(position.x, SCREEN_HEIGHT * 0.75f)));
 }
 
 bool Spawner::hasWrathApplied()
@@ -182,14 +77,8 @@ bool Spawner::hasWrathApplied()
 
 void Spawner::spreadWrathDmg(float wrathDmg)
 {
-	//std::cout << wrathApplied << std::endl;
-	if(!hasWrathApplied())
+	for(int i = 0; i < listOfPeople.size(); i++)
 	{
-		int finalDmg = wrathDmg;
-		wrathApplied = true;
-		for(int i = 0; i < listOfPeople.size(); i++)
-		{
-			listOfPeople[i]->damageHP(finalDmg);
-		}
+		listOfPeople.at(i)->doDamage(wrathDmg, true);
 	}
 }

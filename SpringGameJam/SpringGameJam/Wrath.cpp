@@ -21,7 +21,6 @@ Wrath::~Wrath()
 
 void Wrath::updateSprite()
 {
-	
 	col++;
 	if (col >= 5)
 	{
