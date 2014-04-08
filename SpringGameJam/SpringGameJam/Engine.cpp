@@ -50,10 +50,26 @@ void Engine::loadAssets()
 
 	//KTZ was here...
 	//added the .png files as textures for the npcs
+	//added .mp3 files for sound effects (had to comment them out
 	loadTexture("Images/npcNormalSpriteSheetv1.png", "NormalHuman");
 	loadTexture("Images/npcHotSpriteSheetv1.png", "BurningHuman");
 	loadTexture("Images/npcColdSpriteSheet.png", "FreezingHuman");
 	loadTexture("Images/hut.png", "Hut");
+
+	/*loadAudio("Audio/hurricane-02.mp3", "BlizzardWrath");
+	loadAudio("Audio/Torch-SoundBible.com-1962622442.mp3", "InfernoWrath");
+	loadAudio("Audio/thunder_sound_FX-Grant_Evans-1523270250.mp3", "LightningWrath");
+	loadAudio("Audio/rain-07.mp3", "LightRain");
+	loadAudio("Audio/rain-01.mp3", "HeavyRain");
+	loadAudio("Audio/wind-howl-01.mp3", "LightSnow");
+	loadAudio("Audio/wind-strong-01.mp3", "HeavySnow");
+	loadAudio("Audio/Dove-SoundBible.com-1198030484.mp3", "PerfectWeather");
+	loadAudio("Audio/Thunder-Mike_Koenig-315681025.mp3", "LightningWrath2");
+	loadAudio("Audio/ice-cracking-01.mp3", "IceDeath");
+	loadAudio("Audio/Electric Shock Zap-SoundBible.com-68983399.mp3", "ElectricDeath");
+	loadAudio("Audio/Flame Arrow-SoundBible.com-618067908.mp3", "FireDeath");
+	loadAudio("Audio/Large Fireball-SoundBible.com-301502490.mp3", "FireDeath2");
+	loadAudio("Audio/Small Fireball-SoundBible.com-1381880822.mp3", "FireDeath3");*/
 
 }
 

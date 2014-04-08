@@ -6,7 +6,7 @@ World::World()
 	gameWeather(new Weather()),
 	gameWrath(new Wrath()),
 	//gameSpawner(new Spawner(sf::Sprite(*txtMap->at("Hut")), sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))),
-	tester(new NPC(sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))),
+	tester(new NPC(sf::Vector2f(100, 400))),
 	lastTemp(0),
 	timeOfDay(0),
 	saved(false)

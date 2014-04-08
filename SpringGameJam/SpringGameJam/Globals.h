@@ -3,6 +3,7 @@
 #define GLOBALS_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
@@ -24,6 +25,7 @@ extern int num_of_active_people;
 extern float gravity;
 
 typedef std::map<std::string, sf::Texture*> TextureMap;
+typedef std::map<std::string, sf::SoundBuffer*> AudioMap;
 typedef std::pair<std::string, sf::Texture*> MapPair;
 
 extern TextureMap* txtMap;

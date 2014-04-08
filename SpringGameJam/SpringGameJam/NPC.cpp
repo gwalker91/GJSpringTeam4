@@ -16,6 +16,8 @@ NPC::NPC(sf::Vector2f pos)
 	position(pos), col(0), row(0),
 	idleCols(4), walkingCols(5), dyingCols(4)
 {
+	std::cout << position.x << std::endl;
+	Human.setPosition(position);
 	Human.setTextureRect(sf::IntRect(0, 0, 50, 100));
 	totalCols = idleCols;
 }
@@ -33,9 +35,14 @@ void NPC::updateWalkingSprite(float deltaTime)
 	{
 		col = 0;
 	}
-	std::cout << Human.getPosition().x << std::endl;
-	Human.setPosition(position.x + (1000* deltaTime), position.y);
-	std::cout << Human.getPosition().x << std::endl;
+	//Human.getPosition().x;
+	std::cout << "his new position: " << Human.getPosition().x << std::endl;
+	float movement = 20000 * deltaTime;
+	//std::cout << movement << std::endl;
+	if(Human.getPosition().x > 1000)
+		Human.setPosition(position);
+	Human.setPosition(Human.getPosition().x + (movement), (Human.getPosition().y));
+	std::cout << "his new position: " << Human.getPosition().x << std::endl;
 }
 
 void NPC::changeDirection()

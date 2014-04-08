@@ -21,6 +21,7 @@ int num_of_active_people = 0;
 float gravity = 2;
 
 TextureMap* txtMap = new TextureMap();
+AudioMap* audMap = new AudioMap();
 
 //This can be hold for the verve
 sf::Keyboard::Key dayButton = sf::Keyboard::Q;

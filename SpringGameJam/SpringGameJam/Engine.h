@@ -3,6 +3,7 @@
 #define ENGINE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <vector>
 
@@ -19,6 +20,9 @@ private:
 
 	void loadAssets();
 	void loadTexture(std::string filePath, std::string KeyName);
+	//KTZ was here...
+	//added function to load audio files
+	void loadAudio(std::string filePath, std::string KeyName);
 
 public:
 	Engine();
