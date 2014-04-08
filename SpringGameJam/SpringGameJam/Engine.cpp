@@ -79,11 +79,15 @@ void Engine::handleInput()
 {
 	if(sf::Keyboard::isKeyPressed(upGravityButton))
 	{
-		gravity += 0.1f;
+		gravity = 2.0f;
 	}
 	if(sf::Keyboard::isKeyPressed(downGravityButton))
 	{
-		gravity -= 0.1f;
+		gravity = -2.0f;
+	}
+	if(sf::Keyboard::isKeyPressed(resetGravityButton))
+	{
+		gravity = 1.0f;
 	}
 	gameWorld->handleInput();
 

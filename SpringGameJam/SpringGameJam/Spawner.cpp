@@ -11,7 +11,8 @@
 
 Spawner::Spawner(sf::Sprite hut, sf::Vector2f initPosition) 
 	: spawnTimer(sf::seconds(0.0f)), village(5), town(20), city(50),
-	  hutImage(hut), position(initPosition), wrathApplied(false)
+	  hutImage(hut), position(initPosition), wrathApplied(false), 
+	  timeToSpawnNext(5.0f)
 {
 	hutImage.setPosition(position);
 }
@@ -34,7 +35,7 @@ void Spawner::update(float deltaTime)
 {
 	if(listOfPeople.size() < NUM_OF_PEOPLE)
 	{
-		createPeople();
+		spawnPeople(deltaTime);
 	}
 	for(int i = 0; i < listOfPeople.size(); i++)
 	{
@@ -61,7 +62,12 @@ void Spawner::checkState(int weather)
 //as long as there are less than x active people, keep running, otherwise, stop
 void Spawner::spawnPeople(float deltaTime)
 {
-	
+	timeToSpawnNext -= deltaTime;
+	if(timeToSpawnNext <= 0)
+	{
+		createPeople();
+		timeToSpawnNext = 5.0f;
+	}
 }
 
 //as long as there are less than x alive people, keep running, otherwise, stop

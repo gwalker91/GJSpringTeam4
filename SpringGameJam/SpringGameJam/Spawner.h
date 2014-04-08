@@ -41,6 +41,8 @@ private:
 	bool wet;
 	bool wrathApplied;
 	sf::Time spawnTimer;
+
+	float timeToSpawnNext;
 };
 
 #endif //SPAWNER_H
