@@ -5,6 +5,7 @@
 #include "ParticleSystem.h" 
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <iostream>
 
@@ -51,6 +52,7 @@ private:
 	ParticleSystem rainSystem;
 	sf::Sprite clouds;
 	sf::Sprite darkness;
+	sf::Sound ambientSound;
 };
 
 #endif

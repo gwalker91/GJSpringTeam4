@@ -58,20 +58,20 @@ void Engine::loadAssets()
 	loadTexture("Images/npcColdSpriteSheet.png", "FreezingHuman");
 	loadTexture("Images/hut.png", "Hut");
 
-	/*loadAudio("Audio/hurricane-02.mp3", "BlizzardWrath");
-	loadAudio("Audio/Torch-SoundBible.com-1962622442.mp3", "InfernoWrath");
-	loadAudio("Audio/thunder_sound_FX-Grant_Evans-1523270250.mp3", "LightningWrath");
-	loadAudio("Audio/rain-07.mp3", "LightRain");
-	loadAudio("Audio/rain-01.mp3", "HeavyRain");
-	loadAudio("Audio/wind-howl-01.mp3", "LightSnow");
-	loadAudio("Audio/wind-strong-01.mp3", "HeavySnow");
-	loadAudio("Audio/Dove-SoundBible.com-1198030484.mp3", "PerfectWeather");
-	loadAudio("Audio/Thunder-Mike_Koenig-315681025.mp3", "LightningWrath2");
-	loadAudio("Audio/ice-cracking-01.mp3", "IceDeath");
-	loadAudio("Audio/Electric Shock Zap-SoundBible.com-68983399.mp3", "ElectricDeath");
-	loadAudio("Audio/Flame Arrow-SoundBible.com-618067908.mp3", "FireDeath");
-	loadAudio("Audio/Large Fireball-SoundBible.com-301502490.mp3", "FireDeath2");
-	loadAudio("Audio/Small Fireball-SoundBible.com-1381880822.mp3", "FireDeath3");*/
+	loadAudio("Audio/BlizzardWrath.wav", "BlizzardWrath");
+	loadAudio("Audio/FlameWrath.wav", "InfernoWrath");
+	loadAudio("Audio/ThunderWrath.wav", "LightningWrath");
+	loadAudio("Audio/LightRain.wav", "LightRain");
+	loadAudio("Audio/HeavyRain.wav", "HeavyRain");
+	loadAudio("Audio/LightSnow.wav", "LightSnow");
+	loadAudio("Audio/HeavySnow.wav", "HeavySnow");
+	loadAudio("Audio/NormalDaySE.wav", "PerfectWeather");
+	loadAudio("Audio/ThunderWrath2.wav", "LightningWrath2");
+	loadAudio("Audio/IceDeath.wav", "IceDeath");
+	loadAudio("Audio/ElectricDeath.wav", "ElectricDeath");
+	loadAudio("Audio/flameDeath1.wav", "FireDeath");
+	loadAudio("Audio/flameDeath2.wav", "FireDeath2");
+	loadAudio("Audio/flameDeath3.wav", "FireDeath3");
 
 }
 
@@ -84,6 +84,17 @@ void Engine::loadTexture(std::string filePath, std::string KeyName)
 		window->close();
 	}
 	txtMap->insert(MapPair(KeyName, tempText));
+}
+
+void Engine::loadAudio(std::string filePath, std::string KeyName)
+{
+	sf::SoundBuffer* tempSound = new sf::SoundBuffer();
+	if(!(*tempSound).loadFromFile(filePath))
+	{
+		std::cout << KeyName << " sound was not loaded!" << std::endl;
+		window->close();
+	}
+	audMap->insert(MapPairAudio(KeyName, tempSound));
 }
 
 sf::RenderWindow* Engine::getWindow()

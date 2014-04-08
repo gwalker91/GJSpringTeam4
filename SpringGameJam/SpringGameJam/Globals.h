@@ -27,8 +27,10 @@ extern float gravity;
 typedef std::map<std::string, sf::Texture*> TextureMap;
 typedef std::map<std::string, sf::SoundBuffer*> AudioMap;
 typedef std::pair<std::string, sf::Texture*> MapPair;
+typedef std::pair<std::string, sf::SoundBuffer*> MapPairAudio;
 
 extern TextureMap* txtMap;
+extern AudioMap* audMap;
 
 //Takes care of the keys for the time of day
 extern sf::Keyboard::Key dayButton;

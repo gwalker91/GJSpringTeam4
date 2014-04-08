@@ -10,7 +10,8 @@ NPC::NPC(sf::Vector2f pos)
 	spriteTime(0.2f), wrathed(false),
 	idling(false), isHot(false), isCold(false), isAlive(true),
 	isActive(true), falling(false),
-	Human(sf::Sprite(*txtMap->at("NormalHuman"))),
+	Human(sf::Sprite(*txtMap->at("NormalHuman"))), iceDeath(sf::SoundBuffer(*audMap->at("IceDeath"))),
+	electricDeath(sf::SoundBuffer(*audMap->at("ElectricDeath2"))), flameDeath(sf::SoundBuffer(*audMap->at("FireDeath"))),/**/
 	position(pos), col(0), row(0),
 	idleCols(4), walkingCols(5), dyingCols(4)
 {
@@ -89,6 +90,8 @@ void NPC::changeDirection()
 
 void NPC::kill()
 {
+	sf::Sound sound;
+	electricDeath.play();
 	goingToDie = true;
 	row = 4;
 	col = 0;
@@ -97,6 +100,7 @@ void NPC::kill()
 
 void NPC::killWithWrath()
 {
+	electricDeath.play();
 	row = 4;
 	col = 0;
 	totalCols = dyingCols;

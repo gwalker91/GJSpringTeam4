@@ -39,6 +39,9 @@ private:
 
 	sf::Sprite Human;
 	sf::Vector2f position;
+	sf::SoundBuffer iceDeath;
+	sf::SoundBuffer electricDeath;
+	sf::SoundBuffer flameDeath;
 
 	void updateWalkingSprite(float deltaTime);
 	void updateDeath(float deltaTime);
