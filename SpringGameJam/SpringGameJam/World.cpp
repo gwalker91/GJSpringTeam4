@@ -6,7 +6,6 @@ World::World()
 	gameWeather(new Weather()),
 	gameWrath(new Wrath()),
 	gameSpawner(new Spawner(sf::Sprite(*txtMap->at("Hut")), sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))),
-	//tester(new NPC(sf::Vector2f(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.60))),
 	lastTemp(0),
 	timeOfDay(0),
 	saved(false)
@@ -112,7 +111,6 @@ void World::update(float deltaTime)
 {
 	gameWeather->update(deltaTime);
 	gameWrath->getWeather(gameWeather->getWeather());
-	//std::cout << gameWeather->getWeather() << std::endl;
 	gameSpawner->update(deltaTime);
 
 	gameWrath->update(deltaTime);
@@ -120,7 +118,7 @@ void World::update(float deltaTime)
 	{
 		gameSpawner->spreadWrathDmg(gameWrath->getWrathDmg());
 	}
-	//tester->update(deltaTime);
+
 	gameSpawner->checkState(gameWeather->getWeather());
 	backGroundSwap();
 
@@ -129,9 +127,9 @@ void World::update(float deltaTime)
 void World::draw(sf::RenderWindow* w)
 {
 	w->draw(background);
-	gameWeather->draw(w);
 	gameSpawner->draw(w);
+	gameWeather->draw(w);
 	gameWrath->draw(w);
-	//tester->draw(w);
+	
 }
 

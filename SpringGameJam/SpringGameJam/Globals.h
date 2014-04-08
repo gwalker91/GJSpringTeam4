@@ -49,6 +49,7 @@ extern sf::Keyboard::Key wetButton;
 
 //Takes care of the keys for changing gravity
 extern sf::Keyboard::Key upGravityButton;
+extern sf::Keyboard::Key resetGravityButton;
 extern sf::Keyboard::Key downGravityButton;
 
 //Takes care of the keys for wrath

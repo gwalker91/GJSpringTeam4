@@ -10,7 +10,7 @@
 class NPC
 {
 private:
-
+	float health;
 	int walkSpeed;
 	int fallSpeed;
 	int weatherState;
@@ -50,8 +50,9 @@ private:
 	void killWithWrath();
 	void checkGround(float deltaTime);
 	void checkState();
+	void checkGravity();
 public: 
-		float health;
+
 	NPC();
 	NPC(sf::Vector2f pos);
 	~NPC();

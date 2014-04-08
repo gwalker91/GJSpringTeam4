@@ -5,14 +5,13 @@ NPC::NPC()
 {}
 
 NPC::NPC(sf::Vector2f pos)
-	:health(MIN_HEALTH + (rand() % MAX_HEALTH)), walkSpeed(3000),
+	:health(MIN_HEALTH + (rand() % MAX_HEALTH)), walkSpeed(-50),
 	fallSpeed(1250), direction(10.0f), weatherState(8), DOT(0.1f), DOTDmg(1.0f),
 	spriteTime(0.2f), wrathed(false),
 	idling(false), isHot(false), isCold(false), isAlive(true),
 	isActive(true), falling(false),
-	Human(sf::Sprite(*txtMap->at("NormalHuman"))), iceDeath(sf::SoundBuffer(*audMap->at("IceDeath"))),
-	electricDeath(sf::SoundBuffer(*audMap->at("ElectricDeath2"))), flameDeath(sf::SoundBuffer(*audMap->at("FireDeath"))),/**/
-	position(pos), col(0), row(0),
+	Human(sf::Sprite(*txtMap->at("NormalHuman"))),
+	position(pos), col(0), row(2),
 	idleCols(4), walkingCols(5), dyingCols(4)
 {
 	Human.setPosition(position);
@@ -37,9 +36,7 @@ void NPC::updateWalkingSprite(float deltaTime)
 			if(row != 4)
 				col = 0;
 		}
-		if(deltaTime < 1 && !idling)
-			position.x += walkSpeed * deltaTime;
-		Human.setPosition(position);
+		
 	}
 }
 
@@ -90,8 +87,6 @@ void NPC::changeDirection()
 
 void NPC::kill()
 {
-	sf::Sound sound;
-	electricDeath.play();
 	goingToDie = true;
 	row = 4;
 	col = 0;
@@ -100,7 +95,6 @@ void NPC::kill()
 
 void NPC::killWithWrath()
 {
-	electricDeath.play();
 	row = 4;
 	col = 0;
 	totalCols = dyingCols;
@@ -134,6 +128,7 @@ void NPC::checkState()
 		isHot = true;
 		isCold = false;
 		Human = sf::Sprite(*txtMap->at("BurningHuman"));
+		walkSpeed = (walkSpeed/std::abs(walkSpeed)) * 100;
 		break;
 	case 3:
 	case 4:
@@ -141,6 +136,7 @@ void NPC::checkState()
 		isCold = true;
 		isHot = false;
 		Human = sf::Sprite(*txtMap->at("FreezingHuman"));
+		walkSpeed = (walkSpeed/std::abs(walkSpeed)) * 20;
 		break;
 	case 6:
 	case 7:
@@ -148,6 +144,7 @@ void NPC::checkState()
 		isCold = false;
 		isHot = false;
 		Human = sf::Sprite(*txtMap->at("NormalHuman"));
+		walkSpeed = (walkSpeed/std::abs(walkSpeed)) * 50;
 		break;
 	}
 	Human.setTextureRect(sf::IntRect(0, 0, 50, 100));
@@ -159,6 +156,11 @@ void NPC::update(float deltaTime)
 	spriteTime -= deltaTime;
 	if(!goingToDie && !wrathed)
 	{
+		if(deltaTime < 1 && !idling)
+			position.x += walkSpeed * deltaTime;
+		if(position.x < 0 || position.x > SCREEN_WIDTH)
+			changeDirection();
+		Human.setPosition(position);
 		direction -= deltaTime;
 		if((isHot || isCold))
 			DOT -= deltaTime;
@@ -174,9 +176,11 @@ void NPC::update(float deltaTime)
 		if(spriteTime <= 0)
 		{
 			updateWalkingSprite(deltaTime);
-			checkGround(deltaTime);
+			
 			spriteTime = 0.2f;
 		}
+		checkGround(deltaTime);
+		checkGravity();
 	}
 	else
 	{
@@ -187,10 +191,6 @@ void NPC::update(float deltaTime)
 		}
 	}
 
-	if(position.y <= 0)
-	{
-		isAlive = false;
-	}
 }
 
 void NPC::draw(sf::RenderWindow* w)
@@ -223,6 +223,17 @@ void NPC::checkWeather(int weather)
 	{
 		weatherState = weather;
 		checkState();
+	}
+}
+
+void NPC::checkGravity()
+{
+	if(gravity > 1)
+	{
+		goingToDie = true;
+		row = 5;
+		totalCols = dyingCols;
+		health = 0;
 	}
 }
 

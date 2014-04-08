@@ -18,7 +18,7 @@ int num_of_alive_people = 0;
 //added another int to track how many people are active
 int num_of_active_people = 0;
 
-float gravity = 2;
+float gravity = 1.0f;
 
 TextureMap* txtMap = new TextureMap();
 AudioMap* audMap = new AudioMap();
@@ -39,7 +39,8 @@ sf::Keyboard::Key pleasentButton = sf::Keyboard::X;
 sf::Keyboard::Key wetButton = sf::Keyboard::C;
 
 //This should be sent 1 a second for verve
-sf::Keyboard::Key upGravityButton = sf::Keyboard::O;
+sf::Keyboard::Key upGravityButton = sf::Keyboard::I;
+sf::Keyboard::Key resetGravityButton = sf::Keyboard::O;
 sf::Keyboard::Key downGravityButton = sf::Keyboard::P;
 
 //This should be sent 2 per second for verve
